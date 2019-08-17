@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - cd frontend/
+  - npm install
+  - npm test
+  - npm run build
+# deploy:
+#   provider: surge
+#   skip_cleanup: true
+#   domain: <my_name_here>.surge.sh
+#   project: ./build/
+on:
+  branch: Feature/7_setup_ci_cd
