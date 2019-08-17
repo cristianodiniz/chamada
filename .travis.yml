@@ -14,4 +14,4 @@ deploy:
   domain: chamada-test.surge.sh
   project: ./build/
 on:
-  branch: Feature/7_setup_ci_cd
+  all_branches: true
