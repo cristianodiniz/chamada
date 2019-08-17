@@ -1,7 +1,11 @@
 # Chamada
 
-[![Build Status](https://travis-ci.com/cristianodiniz/chamada.svg?branch=master)](https://travis-ci.com/cristianodiniz/chamada) [![Crates.io](https://img.shields.io/crates/l/rustc-serialize)](https://raw.githubusercontent.com/cristianodiniz/chamada/master/LICENSE)
-![node](https://img.shields.io/node/v/git-master-merged)
+[![Build Status](https://travis-ci.com/cristianodiniz/chamada.svg?branch=master)](https://travis-ci.com/cristianodiniz/chamada)  
+[![deployment](https://img.shields.io/badge/deployment-passing-green)](http://chamada-test.surge.sh) 
+![node](https://img.shields.io/node/v/git-master-merged) 
+[![Crates.io](https://img.shields.io/crates/l/rustc-serialize)](https://raw.githubusercontent.com/cristianodiniz/chamada/master/LICENSE)
+
+
 
 This project is an easy way of make attendance reports using as data google spreadsheets
 
