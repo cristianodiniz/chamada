@@ -4,21 +4,16 @@ node_js:
 sudo: false
 cache:
   directories:
-  - node_modules
-before_install:
-- npm config set spin false
-- npm install -g phantomjs-prebuilt ember-cli
-- phantomjs --version
-
-install:
-- npm install
+    - node_modules
 
 jobs:
   include:
+    # - stage: bundle
+    #   script: npm install
     - stage: test
-      script: ember test
+      script: npm test
     - stage: build
-      script: ember build
+      script: npm build
     - stage: deploy
       deploy: &surge
         provider: surge
@@ -27,3 +22,4 @@ jobs:
         project: ./build/
         on:
           all_branches: true
+
