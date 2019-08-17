@@ -8,10 +8,10 @@ script:
   - npm install
   - npm test
   - npm run build
-# deploy:
-#   provider: surge
-#   skip_cleanup: true
-#   domain: <my_name_here>.surge.sh
-#   project: ./build/
-# on:
-#   branch: Feature/7_setup_ci_cd
+deploy:
+  provider: surge
+  skip_cleanup: true
+  domain: chamada-test.surge.sh
+  project: ./build/
+on:
+  branch: Feature/7_setup_ci_cd
