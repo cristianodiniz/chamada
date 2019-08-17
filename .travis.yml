@@ -1,17 +1,32 @@
 language: node_js
 node_js:
   - "stable"
+sudo: false
 cache:
   directories:
     - node_modules
-script:
-  - npm install
-  - npm test
-  - npm run build
-deploy:
-  provider: surge
-  skip_cleanup: true
-  domain: chamada-test.surge.sh
-  project: ./build/
-on:
-  all_branches: true
+# before_install:
+# - npm config set spin false
+# - npm install -g phantomjs-prebuilt ember-cli
+# - phantomjs --version
+
+# install:
+# - npm install
+
+jobs:
+  include:
+    - stage: bundle
+      script: npm install
+    - stage: test
+      script: npm test
+    - stage: build
+      script: npm build
+    - stage: deploy
+      deploy: &surge
+        provider: surge
+        skip_cleanup: true
+        domain: chamada-test.surge.sh
+        project: ./build/
+        on:
+          all_branches: true
+
