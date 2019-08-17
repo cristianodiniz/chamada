@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/cristianodiniz/chamada.svg?branch=master)](https://travis-ci.com/cristianodiniz/chamada)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
