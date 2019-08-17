@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "stable"
+sudo: false
+cache:
+  directories:
+    - node_modules
+    - build
+
+jobs:
+  include:
+    - stage: bundle
+      script: npm install
+    - stage: test
+      script: npm test
+    - stage: build
+      script: npm build
+    - stage: deploy
+      deploy:
+        provider: surge
+        skip_cleanup: true
+        domain: chamada-test.surge.sh
+        project: ./build/
+        on:
+          all_branches: true
+
