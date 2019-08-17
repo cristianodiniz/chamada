@@ -8,8 +8,8 @@ cache:
 
 jobs:
   include:
-    # - stage: bundle
-    #   script: npm install
+    - stage: bundle
+      script: npm install
     - stage: test
       script: npm test
     - stage: build
