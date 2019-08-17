@@ -16,8 +16,9 @@ jobs:
     - stage: build
       script: npm build
     - stage: deploy
-      deploy: &surge
+      deploy:
         provider: surge
+        env: SURGE_TOKEN=83ba5b1205be8b153eda8db28b8bbe03
         skip_cleanup: true
         domain: chamada-test.surge.sh
         project: ./build/
