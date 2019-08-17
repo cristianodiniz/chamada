@@ -4,7 +4,7 @@ node_js:
 sudo: false
 cache:
   directories:
-  - "$HOME/.npm"
+  - node_modules
 before_install:
 - npm config set spin false
 - npm install -g phantomjs-prebuilt ember-cli
@@ -27,4 +27,3 @@ jobs:
         project: ./build/
         on:
           all_branches: true
-
