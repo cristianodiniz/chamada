@@ -8,7 +8,7 @@ import Switch from "@material-ui/core/Switch";
 class Checker extends Component {
   render() {
     const {classes,  title, onChange, checked } = this.props;
-    debugger
+
     return (
       <span className={classes.container}>
         <Typography

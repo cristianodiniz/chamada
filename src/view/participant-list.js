@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -9,83 +11,21 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 
+import { handleReciverParticipants } from "../actions/participants";
 class ParticipantList extends Component {
-  state = {
-    list: [
-      {
-        image: {
-          url: "http://lorempixel.com/250/250/people?1=csd",
-          title: "Remy Sharp"
-        },
-        name: "Nina Ramos",
-        attended: {
-          sacramental: true,
-          sundaySchool: true
-        },
-        date: "2019-07-21"
-      },
-      {
-        image: {
-          url: "http://lorempixel.com/250/250/people?1=98989",
-          title: "Remy Sharp"
-        },
-        name: "Avery Vasquez",
-        attended: {
-          sacramental: true,
-          sundaySchool: true
-        },
-        date: "2019-07-21"
-      },
-      {
-        image: {
-          url: "http://lorempixel.com/250/250/people?1=120900y",
-          title: "Remy Sharp"
-        },
-        name: "Sergio Fernandez",
-        attended: {
-          sacramental: true,
-          sundaySchool: true
-        },
-        date: "2019-07-21"
-      },
-      {
-        image: {
-          url: "http://lorempixel.com/250/250/people?1=120909",
-          title: "Remy Sharp"
-        },
-        name: "Maya Reynolds",
-        attended: {
-          sacramental: true,
-          sundaySchool: true
-        },
-        date: "2019-07-21"
-      },
-      {
-        image: {
-          url: "http://lorempixel.com/250/250/people?1=120909hjhkk",
-          title: "Remy Sharp"
-        },
-        name: "Imani Juarez",
-        attended: {
-          sacramental: true,
-          sundaySchool: true
-        },
-        date: "2019-07-21"
-      }
-    ]
-  };
 
   handleToggle = (field, idx) => () => {
-    const { list } = this.state;
-    debugger;
-    list[idx].attended[field] = !list[idx].attended[field];
+    // const { list } = this.props;
 
-    this.setState({ ...this.state, list });
+    // list[idx].attended[field] = !list[idx].attended[field];
+
+    // this.setState({ ...this.state, list });
   };
 
   render() {
-    const { classes } = this.props;
-    const { list = [] } = this.state;
+    
+    const { classes,list } = this.props;
+    // const { list = [] } = this.state;
 
     return (
       <List className={classes.root}>
@@ -130,4 +70,19 @@ const styles = {
   }
 };
 
-export default withStyles(styles)(ParticipantList);
+function mapStateToProps({ participants = {} }, props) {
+  return {
+    list: participants.list ? participants.list: [],
+  };
+}
+
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ handleReciverParticipants }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(ParticipantList));
+
+

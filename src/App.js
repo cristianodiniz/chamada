@@ -1,21 +1,41 @@
-import React, { Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import AttendanceReport from './view/attendance-report'
+import { connect } from "react-redux";
+import LoadingBar from "react-redux-loading";
 
+import AttendanceReport from "./view/attendance-report";
+import { handlerInitialData } from "./actions/shared";
 import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Fragment>
-          <Route path="/" exact component={AttendanceReport} />
-          {/* <Route path="/:category" exact component={Dashboard} />
-                <Route path="/:category/:id" component={PostPage} /> */}
-        </Fragment>
-      </Router>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(handlerInitialData());
+  }
+  render() {
+    const { loading } = this.props;
+    return (
+      <div className="App">
+        <Router>
+          <Fragment>
+            <LoadingBar />
+            {!loading && (
+              <Fragment>
+                <Route path="/" exact component={AttendanceReport} />
+                {/* <Route path="/:category" exact component={Dashboard} />
+              <Route path="/:category/:id" component={PostPage} />  */}
+              </Fragment>
+            )}
+          </Fragment>
+        </Router>
+      </div>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps({ loadingBar }) {
+  return {
+    loading: loadingBar ? loadingBar.default === 1 : true
+  };
+}
+
+export default connect(mapStateToProps)(App);
