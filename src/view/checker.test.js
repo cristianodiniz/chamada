@@ -11,7 +11,6 @@ describe('Checker Tests Component', function () {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-
   test('Should Match Snapshot', () => {
     const component = renderer.create(
       <Checker />,

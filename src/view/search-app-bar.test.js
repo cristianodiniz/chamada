@@ -11,7 +11,6 @@ describe('Search App Bar Tests Component', function () {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-
   test('Should Match Snapshot', () => {
     const component = renderer.create(
       <SearchAppBar />,

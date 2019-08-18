@@ -10,12 +10,16 @@ import middleware from "./middleware";
 
 const store = createStore(reducer, middleware);
 
+function renderWithRedux(ui){
+  return (<Provider store={store}>
+    {ui}
+  </Provider>)
+}
+
 it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    renderWithRedux(<App />),
     div
   );
   ReactDOM.unmountComponentAtNode(div);
