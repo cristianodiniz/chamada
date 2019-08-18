@@ -4,7 +4,8 @@
 [![deployment](https://img.shields.io/badge/deployment-passing-green)](http://chamada-test.surge.sh) 
 ![node](https://img.shields.io/node/v/git-master-merged) 
 [![Crates.io](https://img.shields.io/crates/l/rustc-serialize)](https://raw.githubusercontent.com/cristianodiniz/chamada/master/LICENSE)
-[![Chromium HSTS preload](https://img.shields.io/hsts/preload/chamada-test.surge.sh?label=online)](http://chamada-test.surge.sh)
+[![Website](https://img.shields.io/website/https/chamada-test.surge.sh)](http://chamada-test.surge.sh)
+
 
 
 
