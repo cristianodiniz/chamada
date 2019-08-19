@@ -1,7 +1,7 @@
 import { showLoading, hideLoading } from "react-redux-loading";
 
 import { getAllParticipants } from "../services/ChamadaAPI";
-import { reciverParticipants, handleReciverParticipants } from "./participants";
+import { reciverParticipants } from "./participants";
 
 export function handlerInitialData() {
   return dispatch => {
