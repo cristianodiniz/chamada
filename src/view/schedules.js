@@ -12,7 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import { handleReciverSchedules } from "../actions/schedules";
-import { blue, red } from "@material-ui/core/colors";
+
 
 class Schedules extends Component {
   render() {
