@@ -1,16 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
-Array [
+exports[`shecudules view Tests Component Should Match Snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-127"
+>
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-118 MuiAppBar-colorPrimary mui-fixed"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-128 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-119 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-129 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
         onDragLeave={[Function]}
@@ -43,15 +45,15 @@ Array [
         </span>
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-120 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-130 MuiTypography-h6 MuiTypography-noWrap"
       >
         Material-UI
       </h6>
       <div
-        className="makeStyles-search-121"
+        className="makeStyles-search-131"
       >
         <div
-          className="makeStyles-searchIcon-122"
+          className="makeStyles-searchIcon-132"
         >
           <svg
             aria-hidden="true"
@@ -66,12 +68,12 @@ Array [
           </svg>
         </div>
         <div
-          className="MuiInputBase-root makeStyles-inputRoot-123"
+          className="MuiInputBase-root makeStyles-inputRoot-133"
           onClick={[Function]}
         >
           <input
             aria-label="Search"
-            className="MuiInputBase-input makeStyles-inputInput-124"
+            className="MuiInputBase-input makeStyles-inputInput-134"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -81,9 +83,12 @@ Array [
         </div>
       </div>
     </div>
-  </header>,
+  </header>
   <div
-    className="makeStyles-space-125"
-  />,
-]
+    className="makeStyles-space-135"
+  />
+  <ul
+    className="MuiList-root Schedules-root-245 MuiList-padding"
+  />
+</div>
 `;

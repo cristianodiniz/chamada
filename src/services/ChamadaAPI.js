@@ -62,7 +62,31 @@ const participants = [
   }
 ];
 
-export const getAllParticipants = () =>
+export const getAllParticipants = (id) =>
   new Promise((resolve, reject) => {
     resolve(participants);
   });
+
+const schedules = [
+  { date:"2019-01-01"
+  ,status:"pending"},
+  { date:"2019-01-07"
+  ,status:"pending"},
+  { date:"2019-01-14"
+  ,status:"pending"},
+  { date:"2019-01-21"
+  ,status:"pending"},
+  { date:"2019-01-28"
+  ,status:"pending"},
+  { date:"2019-02-04"
+  ,status:"pending"},
+  { date:"2019-01-11"
+  ,status:"pending"}
+];
+
+export const getAllSchedules = () =>
+  new Promise((resolve, reject) => {
+    resolve(schedules);
+  });
+
+  

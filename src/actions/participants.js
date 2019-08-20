@@ -9,14 +9,16 @@ export function reciverParticipants(data) {
   };
 }
 
-export function handleReciverParticipants() {
+export function handleReciverParticipants(scheduleId,callback = null) {
   return dispatch => {
-    getAllParticipants()
+    getAllParticipants(scheduleId)
       .then(data => {
         dispatch(reciverParticipants(data));
+        callback(null,data)
       })
       .catch(e => {
         console.warn("Error in handleReciverParticipants: ", e);
+        callback(e,null)
       });
   };
 }
