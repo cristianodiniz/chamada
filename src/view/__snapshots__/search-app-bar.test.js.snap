@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
-<div
-  className="makeStyles-root-117"
->
+Array [
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-118 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-118 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-119 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
         onDragLeave={[Function]}
@@ -45,15 +43,15 @@ exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
         </span>
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-119 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-120 MuiTypography-h6 MuiTypography-noWrap"
       >
         Material-UI
       </h6>
       <div
-        className="makeStyles-search-120"
+        className="makeStyles-search-121"
       >
         <div
-          className="makeStyles-searchIcon-121"
+          className="makeStyles-searchIcon-122"
         >
           <svg
             aria-hidden="true"
@@ -68,12 +66,12 @@ exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
           </svg>
         </div>
         <div
-          className="MuiInputBase-root makeStyles-inputRoot-122"
+          className="MuiInputBase-root makeStyles-inputRoot-123"
           onClick={[Function]}
         >
           <input
             aria-label="Search"
-            className="MuiInputBase-input makeStyles-inputInput-123"
+            className="MuiInputBase-input makeStyles-inputInput-124"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -83,6 +81,9 @@ exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
         </div>
       </div>
     </div>
-  </header>
-</div>
+  </header>,
+  <div
+    className="makeStyles-space-125"
+  />,
+]
 `;
