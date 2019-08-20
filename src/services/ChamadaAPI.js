@@ -66,3 +66,11 @@ export const getAllParticipants = () =>
   new Promise((resolve, reject) => {
     resolve(participants);
   });
+
+
+export const getAllSchedules = () =>
+  new Promise((resolve, reject) => {
+    resolve(participants);
+  });
+
+  
