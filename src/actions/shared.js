@@ -1,22 +1,26 @@
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import { getAllParticipants } from "../services/ChamadaAPI";
+import { getAllParticipants,getAllSchedules } from "../services/ChamadaAPI";
 import { reciverParticipants } from "./participants";
+import { reciverSchedules } from "./schedules";
 
 export function handlerInitialData() {
   return dispatch => {
     dispatch(showLoading());
-    getAllParticipants()
-      .then(participants => {
-        dispatch(reciverParticipants(participants));
-        // dispatch(
-        //   handleChangeFiltersPost({
-        //     categorySelected: categories[0].name,
-        //     order: "Votes Decrescent",
-        //     search: ""
-        //   })
-        // );
-        dispatch(hideLoading());
+    getAllSchedules()
+      .then(schedules => {
+        dispatch(reciverSchedules(schedules));
+        for (const schedule in schedules){
+          getAllParticipants(schedule.id)
+          .then(participants=>{
+            dispatch(reciverParticipants(participants));
+            dispatch(hideLoading());
+          })
+          .catch(e=>{
+            console.log("getAllParticipants ", e);
+            dispatch(hideLoading());
+          }) 
+        }
       })
       .catch(e => {
         console.log("getAllParticipants ", e);
@@ -24,3 +28,13 @@ export function handlerInitialData() {
       });
   };
 }
+
+
+// export function handlerInitialData() {
+//   return handleReciverSchedules((schedules)=>{
+//     for(const schedule in schedules){
+//       handleReciverParticipants(schedule.id);
+//     }
+//   })
+    
+// }
