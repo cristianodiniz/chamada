@@ -2,4 +2,10 @@ import thunk from "redux-thunk";
 import { applyMiddleware } from "redux";
 import logger from "./logger";
 
-export default applyMiddleware(thunk, logger);
+import { getFirebase } from "react-redux-firebase";
+import { getFirestore } from "redux-firestore";
+
+export default applyMiddleware(
+  thunk.withExtraArgument({ getFirebase, getFirestore }),
+  logger
+);
