@@ -8,10 +8,11 @@ import ParticipantList from "./participant-list";
 class MarkAttendance extends Component {
   render() {
     const {match} = this.props
+    const scheduleId =  match ? match.params.scheduleId : null
     return (
       <Box>
         <SearchAppBar />
-        <ParticipantList scheduleId={match.params.scheduleId} />
+        { scheduleId && <ParticipantList scheduleId={scheduleId} />}
       </Box>
     );
   }
