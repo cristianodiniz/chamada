@@ -11,8 +11,8 @@ jobs:
   include:
     - stage: bundle
       script: npm install
-    # - stage: test
-    #   script: npm test
+    - stage: test
+      script: CI=true yarn test
     - stage: build
       script: npm run-script build
     - stage: deploy
