@@ -22,7 +22,7 @@ class App extends Component {
             {!loading && (
               <Fragment>
                 <Route path="/schedule/:scheduleId/attendance" exact component={AttendanceReport} />
-                <Route path="/schedule" exact component={SchedulesView} />
+                <Route path="/" exact component={SchedulesView} />
                 {/* <Route path="/:category" exact component={Dashboard} />
               <Route path="/:category/:id" component={PostPage} />  */}
               </Fragment>

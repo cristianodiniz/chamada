@@ -2,11 +2,19 @@ import { getAllSchedules } from "../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 export const RECIVER_SCHEDULES = "RECIVER_SCHEDULES";
+export const SEARCH_SCHEDULES = "SEARCH_SCHEDULES";
 
 export function reciverSchedules(data) {
   return {
     type: RECIVER_SCHEDULES,
     dates: data
+  };
+}
+
+export function searchSchedules(searchTerm) {
+  return {
+    type: SEARCH_SCHEDULES,
+    search: searchTerm
   };
 }
 
@@ -26,3 +34,12 @@ export function handleReciverSchedules(callback = null) {
       });
   };
 }
+
+export function handleOnSearchSchedules(searchTerm) {
+  return dispatch => {
+    dispatch(showLoading());
+    dispatch(searchSchedules(searchTerm));
+    dispatch(hideLoading());
+  };
+}
+

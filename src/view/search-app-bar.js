@@ -59,14 +59,19 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-  space:{
+  space: {
     minHeight: "56px"
   }
 }));
 
-export default function SearchAppBar() {
-  const classes = useStyles();
+const handlerOnChangeSearch = (onSearch) => (e) => {
+  onSearch(e.target.value)
+}
 
+export default function SearchAppBar(props) {
+  const classes = useStyles();
+  const { onSearch } = props;
+  
   return (
     <Fragment>
       <AppBar className={classes.root} position="fixed">
@@ -92,6 +97,7 @@ export default function SearchAppBar() {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
+              onChange={handlerOnChangeSearch(onSearch)}
               inputProps={{ "aria-label": "Search" }}
             />
           </div>
