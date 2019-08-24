@@ -25,10 +25,10 @@ class Schedules extends Component {
       <Fragment>
         <List className={classes.root}>
           {list.length > 0 &&
-            list.map(({ date, status }, idx) => (
+            list.map(({ date, status, id }, idx) => (
               <Fragment key={idx}>
                 <Link
-                  to={`/schedule/${date}/attendance`}
+                  to={`/schedule/${id}/attendance`}
                   className={classes.link}
                 >
                   <ListItem alignItems="flex-start">
