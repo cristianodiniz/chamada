@@ -1,7 +1,9 @@
+export const COLLECTION_NAME = "schedules";
+
 import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
-export const COLLECTION_NAME = "schedules";
+import {createErrorMessage} from "./errors"
 
 // #region CREATE_SCHEDULE
 export const CREATE_SCHEDULE = "CREATE_SCHEDULE";
@@ -19,16 +21,11 @@ export const handleCreateSchedule = schedule => {
       ...schedule,
       createBy: "author name",
       createAt: new Date()
-    }).then(()=>{
-      dispatch({
-        type: CREATE_SCHEDULE,
-        schedule: schedule
-      });
+    }).then((response)=>{
+      console.log("response",response);
+      dispatch(createSchedule(schedule));
     }).catch((error)=>{
-      dispatch({
-        type: CREATE_SCHEDULE,
-        schedule: schedule
-      });
+      dispatch(createErrorMessage(error));
     })
     
   };
