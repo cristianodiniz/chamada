@@ -1,10 +1,9 @@
-const COLLECTION_NAME = "schedules";
-
 import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 import {createErrorMessage} from "./errors"
 
+export const COLLECTION_NAME = "schedules";
 // #region CREATE_SCHEDULE
 export const CREATE_SCHEDULE = "CREATE_SCHEDULE";
 export function createSchedule(schedule) {

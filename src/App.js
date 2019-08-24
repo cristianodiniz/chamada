@@ -5,7 +5,7 @@ import LoadingBar from "react-redux-loading";
 
 import AttendanceReport from "./view/attendance-report";
 import SchedulesView from "./view/schedules-view"
-import { handlerInitialData } from "./actions/shared";
+import { handlerInitialData } from "./store/actions/shared";
 import "./App.css";
 
 class App extends Component {

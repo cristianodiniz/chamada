@@ -11,7 +11,7 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import { handleReciverSchedules } from "../actions/schedules";
+import { handleReciverSchedules } from "../store/actions/schedules";
 
 
 class Schedules extends Component {

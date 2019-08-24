@@ -1,4 +1,4 @@
-import { getAllParticipants } from "../services/ChamadaAPI";
+import { getAllParticipants } from "../../services/ChamadaAPI";
 
 export const RECIVER_PARTICIPANTS = "RECIVER_PARTICIPANTS";
 

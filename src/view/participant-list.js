@@ -11,7 +11,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 
-import { handleReciverParticipants } from "../actions/participants";
+import { handleReciverParticipants } from "../store/actions/participants";
 class ParticipantList extends Component {
 
   handleToggle = (field, idx) => () => {
