@@ -2,6 +2,6 @@
 
 exports[`Participant List Tests Component Should Match Snapshot 1`] = `
 <ul
-  className="MuiList-root ParticipantList-root-6 MuiList-padding"
+  className="MuiList-root ParticipantList-root-7 MuiList-padding"
 />
 `;
