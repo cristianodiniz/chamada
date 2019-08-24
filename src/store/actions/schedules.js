@@ -1,4 +1,4 @@
-export const COLLECTION_NAME = "schedules";
+const COLLECTION_NAME = "schedules";
 
 import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
