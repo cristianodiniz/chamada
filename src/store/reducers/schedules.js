@@ -1,6 +1,6 @@
 import { RECIVER_SCHEDULES, SEARCH_SCHEDULES, CREATE_SCHEDULE } from "../actions/schedules";
 
-export const initialState = { list: [], search: "", searchResult: [] };
+export const initialState = { dates: [], search: "", searchResult: [] };
 
 export default function Schedules(state = initialState, action) {
   switch (action.type) {

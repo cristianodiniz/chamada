@@ -4,6 +4,7 @@ import { showLoading, hideLoading } from "react-redux-loading";
 import {createErrorMessage} from "./errors"
 
 export const COLLECTION_NAME = "schedules";
+
 // #region CREATE_SCHEDULE
 export const CREATE_SCHEDULE = "CREATE_SCHEDULE";
 export function createSchedule(schedule) {
@@ -53,10 +54,10 @@ export function handleOnSearchSchedules(searchTerm) {
 
 // #region RECIVER_SCHEDULES
 export const RECIVER_SCHEDULES = "RECIVER_SCHEDULES";
-export function reciverSchedules(data) {
+export function reciverSchedules(dates) {
   return {
     type: RECIVER_SCHEDULES,
-    chedule: data
+    dates
   };
 }
 
