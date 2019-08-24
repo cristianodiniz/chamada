@@ -33,7 +33,7 @@ export const handleCreateSchedule = schedule => {
 
 // #endregion CREATE_SCHEDULE
 
-// #region CREATE_SCHEDULE
+// #region SEARCH_SCHEDULES
 export const SEARCH_SCHEDULES = "SEARCH_SCHEDULES";
 export function searchSchedules(searchTerm) {
   return {
