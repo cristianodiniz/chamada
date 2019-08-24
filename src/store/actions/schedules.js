@@ -1,4 +1,4 @@
-import { getAllSchedules } from "../services/ChamadaAPI";
+import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
 export const RECIVER_SCHEDULES = "RECIVER_SCHEDULES";
