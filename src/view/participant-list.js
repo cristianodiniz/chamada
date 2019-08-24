@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,43 +15,39 @@ import Checker from "./checker";
 
 import { handleReciverParticipants } from "../store/actions/participants";
 class ParticipantList extends Component {
-
   handleToggle = (field, idx) => () => {
     // const { list } = this.props;
-
     // list[idx].attended[field] = !list[idx].attended[field];
-
     // this.setState({ ...this.state, list });
   };
 
   render() {
-    
-    const { classes,list } = this.props;
+    const { classes, list } = this.props;
     // const { list = [] } = this.state;
 
     return (
       <List className={classes.root}>
         {list.length > 0 &&
-          list.map(({ image, name, attended }, idx) => (
-            <Fragment key={idx}>
+          list.map(({ attendance, firstName, lastName, office, avatar }, idx) => (
+            <Fragment key={attendance.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                  <Avatar alt={image.title} src={image.url} />
+                  <Avatar alt={firstName} src={avatar} className={classes.avatar} />
                 </ListItemAvatar>
-  
+
                 <ListItemText
-                  primary={name}
+                  primary={`${lastName}, ${firstName}`}
                   secondary={
                     <span className={classes.attendence}>
                       <Checker
                         title={"Sacramental?"}
-                        onChange={this.handleToggle("sacramental", idx)}
-                        checked={attended.sacramental}
+                        onChange={this.handleToggle("sacramental", attendance.id)}
+                        checked={attendance.sacramental}
                       />
                       <Checker
                         title={"Quorum?"}
-                        onChange={this.handleToggle("sundaySchool", idx)}
-                        checked={attended.sundaySchool}
+                        onChange={this.handleToggle("quorum", attendance.id)}
+                        checked={attendance.quorum}
                       />
                     </span>
                   }
@@ -67,22 +65,39 @@ const styles = {
   root: {
     width: "100%",
     maxWidth: "100%"
-  }
+  },
+  avatar: {
+    margin: 10,
+    width: 80,
+    height: 80,
+  },
 };
 
-function mapStateToProps({ participants = {} }, props) {
+function mapStateToProps(store, { scheduleId }) {
+  const { participants = {}, firestore } = store;
+  const { attendances, persons } = firestore.ordered;
+  
+  const list = (attendances && persons) ? persons.map(it => {
+    const { id, quorum, sacramental } = attendances.filter(
+      filter =>
+        filter.person.id === "Pa0hx7hqSG787IpS116p" &&
+        filter.schedule.id === scheduleId
+    )[0];
+    return { ...it, attendance: { id, quorum, sacramental } };
+  }): [];
+
   return {
-    list: participants.list ? participants.list: [],
+    list: list ? list : []
   };
 }
-
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ handleReciverParticipants }, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "persons" }, { collection: "attendances" }])
 )(withStyles(styles)(ParticipantList));
-
-
