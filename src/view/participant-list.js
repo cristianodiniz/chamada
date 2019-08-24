@@ -13,9 +13,11 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 
-import { handleReciverParticipants } from "../store/actions/participants";
+import { handleReciverParticipants,handleUpdateAtendence } from "../store/actions/participants";
 class ParticipantList extends Component {
-  handleToggle = (field, idx) => () => {
+  handleToggle = (field, attendance) => () => {
+    attendance[field] = !attendance[field]
+    this.props.handleUpdateAtendence(attendance)
     // const { list } = this.props;
     // list[idx].attended[field] = !list[idx].attended[field];
     // this.setState({ ...this.state, list });
@@ -41,12 +43,12 @@ class ParticipantList extends Component {
                     <span className={classes.attendence}>
                       <Checker
                         title={"Sacramental?"}
-                        onChange={this.handleToggle("sacramental", attendance.id)}
+                        onChange={this.handleToggle("sacramental", attendance)}
                         checked={attendance.sacramental}
                       />
                       <Checker
                         title={"Quorum?"}
-                        onChange={this.handleToggle("quorum", attendance.id)}
+                        onChange={this.handleToggle("quorum", attendance)}
                         checked={attendance.quorum}
                       />
                     </span>
@@ -74,7 +76,7 @@ const styles = {
 };
 
 function mapStateToProps(store, { scheduleId }) {
-  const { participants = {}, firestore } = store;
+  const { firestore } = store;
   const { attendances, persons } = firestore.ordered;
   
   const list = (attendances && persons) ? persons.map(it => {
@@ -92,7 +94,7 @@ function mapStateToProps(store, { scheduleId }) {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ handleReciverParticipants }, dispatch);
+  bindActionCreators({ handleReciverParticipants, handleUpdateAtendence }, dispatch);
 
 export default compose(
   connect(
