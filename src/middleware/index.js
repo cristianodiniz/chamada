@@ -10,6 +10,6 @@ export default compose(
     thunk.withExtraArgument({ getFirebase, getFirestore }),
     logger
   ),
-  reduxFirestore(fdConfig),
+  reduxFirestore(fdConfig,{ attachAuthIsReady: true}),
   reactReduxFirebase(fdConfig)
 );

@@ -13,15 +13,23 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 
-import { handleReciverParticipants,handleUpdateAtendence } from "../store/actions/participants";
+import {
+  handleReciverParticipants,
+  handleUpdateAtendence,
+  handleCreatePerson
+} from "../store/actions/participants";
 class ParticipantList extends Component {
   handleToggle = (field, attendance) => () => {
-    attendance[field] = !attendance[field]
-    this.props.handleUpdateAtendence(attendance)
+    attendance[field] = !attendance[field];
+    this.props.handleUpdateAtendence(attendance);
     // const { list } = this.props;
     // list[idx].attended[field] = !list[idx].attended[field];
     // this.setState({ ...this.state, list });
   };
+
+  update() {
+    this.props.handleCreatePerson();
+  }
 
   render() {
     const { classes, list } = this.props;
@@ -29,35 +37,45 @@ class ParticipantList extends Component {
 
     return (
       <List className={classes.root}>
+        {/* <button onClick={()=>{this.update()}}>button</button> */}
         {list.length > 0 &&
-          list.map(({ attendance, firstName, lastName, office, avatar }, idx) => (
-            <Fragment key={attendance.id}>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar alt={firstName} src={avatar} className={classes.avatar} />
-                </ListItemAvatar>
+          list.map(
+            ({ attendance, firstName, lastName, office, avatar }, idx) => (
+              <Fragment key={attendance.id}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={firstName}
+                      src={avatar}
+                      className={classes.avatar}
+                    />
+                  </ListItemAvatar>
 
-                <ListItemText
-                  primary={`${lastName}, ${firstName}`}
-                  secondary={
-                    <span className={classes.attendence}>
-                      <Checker
-                        title={"Sacramental?"}
-                        onChange={this.handleToggle("sacramental", attendance)}
-                        checked={attendance.sacramental}
-                      />
-                      <Checker
-                        title={"Quorum?"}
-                        onChange={this.handleToggle("quorum", attendance)}
-                        checked={attendance.quorum}
-                      />
-                    </span>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-            </Fragment>
-          ))}
+                  <ListItemText
+                    primary={`${lastName}, ${firstName}`}
+                    secondary={
+                      <span className={classes.attendence}>
+                        <Checker
+                          title={"Sacramental?"}
+                          onChange={this.handleToggle(
+                            "sacramental",
+                            attendance
+                          )}
+                          checked={attendance.sacramental}
+                        />
+                        <Checker
+                          title={"Quorum?"}
+                          onChange={this.handleToggle("quorum", attendance)}
+                          checked={attendance.quorum}
+                        />
+                      </span>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </Fragment>
+            )
+          )}
       </List>
     );
   }
@@ -71,30 +89,55 @@ const styles = {
   avatar: {
     margin: 10,
     width: 80,
-    height: 80,
-  },
+    height: 80
+  }
 };
 
 function mapStateToProps(store, { scheduleId }) {
   const { firestore } = store;
   const { attendances, persons } = firestore.ordered;
-  
-  const list = (attendances && persons) ? persons.map(it => {
-    const { id, quorum, sacramental } = attendances.filter(
-      filter =>
-        filter.person.id === "Pa0hx7hqSG787IpS116p" &&
-        filter.schedule.id === scheduleId
-    )[0];
-    return { ...it, attendance: { id, quorum, sacramental } };
-  }): [];
+
+  const list =
+    attendances && persons
+      ? persons.map(it => {
+          const filtered = attendances.filter(
+            filter =>
+              filter.personId === it.id && filter.scheduleId === scheduleId
+          );
+
+          if (filtered.length > 0) {
+            const { id, quorum, sacramental } = filtered[0];
+
+            return {
+              ...it,
+              attendance: { id, quorum, sacramental, personId : it.id , scheduleId  }
+               
+            };
+          } else {
+            return {
+              ...it,
+              attendance: { quorum: false, sacramental: false, personId : it.id , scheduleId  }
+            };
+          }
+        })
+      : [];
 
   return {
-    list: list ? list : []
+    list: list ? list.sort((a,b)=> {
+        if (a.lastName > b.lastName) 
+          return 1; 
+        else if (a.lastName < b.lastName) 
+          return -1; 
+        return 0; 
+      }) : []
   };
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ handleReciverParticipants, handleUpdateAtendence }, dispatch);
+  bindActionCreators(
+    { handleReciverParticipants, handleUpdateAtendence, handleCreatePerson },
+    dispatch
+  );
 
 export default compose(
   connect(

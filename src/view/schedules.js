@@ -60,10 +60,16 @@ const styles = {
   }
 };
 
-function mapStateToProps({firestore = {}}, props) {
-  const { ordered } = firestore
+function mapStateToProps({ firestore = {} }, props) {
+  const { ordered } = firestore;
   return {
-    list: ordered.schedules ? ordered.schedules : []
+    list: ordered.schedules
+      ? ordered.schedules.sort((a, b) => {
+          if (a.date < b.date) return 1;
+          else if (a.date > b.date) return -1;
+          return 0;
+        })
+      : []
   };
 }
 
