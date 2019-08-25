@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const handlerOnChangeSearch = (onSearch) => (e) => {
-  onSearch(e.target.value)
+  onSearch && onSearch(e.target.value)
 }
 
 export default function SearchAppBar(props) {

@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import { getAllParticipants,getAllSchedules } from "../services/ChamadaAPI";
+import { getAllParticipants,getAllSchedules } from "../../services/ChamadaAPI";
 import { reciverParticipants } from "./participants";
 import { reciverSchedules } from "./schedules";
 

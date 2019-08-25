@@ -7,7 +7,7 @@ import Box from "@material-ui/core/Box";
 import SearchAppBar from "./search-app-bar";
 import Schedules from "./schedules";
 
-import { handleOnSearchSchedules } from "../actions/schedules";
+import { handleOnSearchSchedules } from "../store/actions/schedules";
 
 class SchedulesView extends Component {
   render() {

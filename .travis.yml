@@ -12,7 +12,7 @@ jobs:
     - stage: bundle
       script: npm install
     - stage: test
-      script: npm test
+      script: npm run test
     - stage: build
       script: npm run-script build
     - stage: deploy
