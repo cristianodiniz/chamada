@@ -17,4 +17,4 @@ This project is an easy way to make attendance reports using as data base google
 Cristiano Diniz Pinto, cristianodp@gmail.com
 
 ## License
-Chamata is available under the Apache License 2.0. See the LICENSE file for more info.
+Chamada is available under the Apache License 2.0. See the LICENSE file for more info.
