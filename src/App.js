@@ -5,6 +5,7 @@ import LoadingBar from "react-redux-loading";
 
 import AttendanceReport from "./view/attendance-report";
 import SchedulesView from "./view/schedules-view"
+import Login from './view/login'
 import { handlerInitialData } from "./store/actions/shared";
 import "./App.css";
 
@@ -23,6 +24,7 @@ class App extends Component {
               <Fragment>
                 <Route path="/schedule/:scheduleId/attendance" exact component={AttendanceReport} />
                 <Route path="/" exact component={SchedulesView} />
+                <Route path="/login" exact component={Login} />
                 {/* <Route path="/:category" exact component={Dashboard} />
               <Route path="/:category/:id" component={PostPage} />  */}
               </Fragment>
