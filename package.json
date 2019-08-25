@@ -21,7 +21,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && cp ./build/index.html ./build/200.html",
-    "test": "react-scripts test",
+    "testDev": "react-scripts test ",
+    "test": "CI=true react-scripts test ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
