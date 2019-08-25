@@ -92,6 +92,8 @@ export const handleCreatePerson = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     
     const firestore = getFirestore();
+   // const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
     for(let idx in persons){
       const person = persons[idx]
       firestore.collection('persons').add({
@@ -99,7 +101,7 @@ export const handleCreatePerson = () => {
         fullName:`${person.firstName} ${person.lastName} `,
         office:"Elder",
         avatar:"https://firebasestorage.googleapis.com/v0/b/chamda-online.appspot.com/o/avatar.png?alt=media&token=840682a4-9423-4ada-b577-21508151d4ac",
-        createBy: "admin",
+        createBy: authorId,
         createAt: new Date()
       }).then((response)=>{
         console.log("response",response);
