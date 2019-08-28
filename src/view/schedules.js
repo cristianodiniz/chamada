@@ -60,11 +60,12 @@ const styles = {
   }
 };
 
-function mapStateToProps({ firestore = {} }, props) {
+function mapStateToProps({ firestore = {}, schedule }, props) {
   const { ordered } = firestore;
+  const { search = ""} = schedule
   return {
     list: ordered.schedules
-      ? ordered.schedules.sort((a, b) => {
+      ? ordered.schedules.filter(filter => filter.date.includes(search)).sort((a, b) => {
           if (a.date < b.date) return 1;
           else if (a.date > b.date) return -1;
           return 0;
