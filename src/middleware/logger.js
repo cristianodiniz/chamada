@@ -1,4 +1,4 @@
-import env from "../config/environment";
+// import env from "../config/environment";
 
 const logger = store => next => action => {
   // if (!env.IS_DEV_MODE) {
