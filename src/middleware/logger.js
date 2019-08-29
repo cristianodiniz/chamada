@@ -1,9 +1,10 @@
-// import env from "../config/environment";
+import env from "../config/environment";
 
 const logger = store => next => action => {
-  // if (!env.IS_DEV_MODE) {
-  //   return;
-  // }
+  if (!env.IS_DEV_MODE) {
+    return next(action);
+  }
+  return 
   console.group(action.type);
   console.log("The action", action);
   const returnValue = next(action);
