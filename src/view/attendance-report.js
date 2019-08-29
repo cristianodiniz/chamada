@@ -1,21 +1,39 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import Box from "@material-ui/core/Box";
 
 import SearchAppBar from "./search-app-bar";
 import ParticipantList from "./participant-list";
+import { handleOnSearchParticipants } from "../store/actions/participants";
 
 class MarkAttendance extends Component {
   render() {
-    const {match} = this.props
+    const {match,handleOnSearchParticipants} = this.props
     const scheduleId =  match ? match.params.scheduleId : null
     return (
       <Box>
-        <SearchAppBar />
+        <SearchAppBar onSearch ={handleOnSearchParticipants} />
         { scheduleId && <ParticipantList scheduleId={scheduleId} />}
       </Box>
     );
   }
 }
 
-export default MarkAttendance;
+
+function mapStateToProps({ participants = {} }, props) {
+  return {
+    search: participants.search ? participants.search : ""
+  };
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ handleOnSearchParticipants }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MarkAttendance);
+
+

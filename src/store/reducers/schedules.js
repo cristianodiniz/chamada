@@ -1,4 +1,8 @@
-import { RECIVER_SCHEDULES, SEARCH_SCHEDULES, CREATE_SCHEDULE } from "../actions/schedules";
+import {
+  RECIVER_SCHEDULES,
+  SEARCH_SCHEDULES,
+  CREATE_SCHEDULE
+} from "../actions/schedules";
 
 export const initialState = { dates: [], search: "", searchResult: [] };
 
@@ -11,20 +15,12 @@ export default function Schedules(state = initialState, action) {
         search: "",
         list: action.dates
       };
-    case SEARCH_SCHEDULES: {
-      const { search } = action;
-      const { dates } = state;
-      const list = dates
-        ? dates.filter(it => it.date.includes(search))
-        : dates;
+    case SEARCH_SCHEDULES:
       return {
         ...state,
-        search,
-        list
+        search: action.search
       };
-    };
     case CREATE_SCHEDULE: {
-      
       return {
         ...state
       };

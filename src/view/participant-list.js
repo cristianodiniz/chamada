@@ -93,13 +93,12 @@ const styles = {
   }
 };
 
-function mapStateToProps(store, { scheduleId }) {
-  const { firestore } = store;
+function mapStateToProps({ firestore, participants }, { scheduleId }) {
   const { attendances, persons } = firestore.ordered;
-
+  const { search } = participants;
   const list =
     attendances && persons
-      ? persons.map(it => {
+      ? persons.filter(filter=> filter.fullName.includes(search)).map(it => {
           const filtered = attendances.filter(
             filter =>
               filter.personId === it.id && filter.scheduleId === scheduleId

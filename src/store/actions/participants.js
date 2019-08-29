@@ -5,10 +5,8 @@ import { createErrorMessage } from "./errors";
 
 export const COLLECTION_NAME = "attendances";
 
-export const RECIVER_PARTICIPANTS = "RECIVER_PARTICIPANTS";
-export const UPDATE_ATTENDANCE = "UPDATE_ATTENDANCE";
-
 // #region reciverParticipants
+export const RECIVER_PARTICIPANTS = "RECIVER_PARTICIPANTS";
 export function reciverParticipants(data) {
   return {
     type: RECIVER_PARTICIPANTS,
@@ -33,6 +31,7 @@ export function handleReciverParticipants(scheduleId, callback = null) {
 // #endregion reciverParticipants
 
 // #region updateAtendence
+export const UPDATE_ATTENDANCE = "UPDATE_ATTENDANCE";
 export const updateAtendence = atendence => {
   return {
     type: RECIVER_PARTICIPANTS,
@@ -79,15 +78,11 @@ export const handleUpdateAtendence = atendence => {
   };
 };
 
-// #endregion updateAtendence
-
-
+// #endregion
 
 // #region CREATE_PERSON
 
 const persons = [{"lastName":"Back","firstName":"Klaus"},{"lastName":"Back","firstName":"Oliver"},{"lastName":"Bahlhorn","firstName":"Holger"},{"lastName":"Blackburn","firstName":"Norman"},{"lastName":"Bulseco","firstName":"Marco Gaudencio Madrid"},{"lastName":"Czirniok","firstName":"Danny"},{"lastName":"Czirniok","firstName":"Ralf"},{"lastName":"Diener","firstName":"Volker Jürgen"},{"lastName":"Dietzel","firstName":"Ronald Kurt"},{"lastName":"Dzierzon","firstName":"Daniel"},{"lastName":"Hartmann","firstName":"Karl Dietrich"},{"lastName":"Heuser","firstName":"Heinrich"},{"lastName":"Hoffmann","firstName":"Tobias Uwe"},{"lastName":"Kleine","firstName":"Robin"},{"lastName":"Klier","firstName":"Martin"},{"lastName":"König","firstName":"Torsten"},{"lastName":"Kouame","firstName":"Johnson"},{"lastName":"Krause","firstName":"Oliver Steffen"},{"lastName":"Kusserow","firstName":"Tino"},{"lastName":"Kwabena","firstName":"Asamoah"},{"lastName":"Lakpa","firstName":"Hubert"},{"lastName":"Leiss","firstName":"Simon"},{"lastName":"Leiss","firstName":"Thomas"},{"lastName":"Lesnik","firstName":"Thomas"},{"lastName":"Longnecker","firstName":"Ronald Keith"},{"lastName":"Lorenzen","firstName":"Wendall"},{"lastName":"Lorke","firstName":"Hans-Albert"},{"lastName":"Lüning","firstName":"Jobst- Dieter"},{"lastName":"Martins","firstName":"Parley"},{"lastName":"Masih","firstName":"Joseph"},{"lastName":"Meisenfelder","firstName":"Gernot"},{"lastName":"Menssen","firstName":"Dieter Robert Anton"},{"lastName":"Mucatchua","firstName":"Jose"},{"lastName":"Nüske","firstName":"Peter"},{"lastName":"Panitsch","firstName":"Michael"},{"lastName":"Pinto","firstName":"Cristiano Diniz"},{"lastName":"Pires","firstName":"Eduardo Henrique"},{"lastName":"Rodriguez-Klammer","firstName":"Joaquin"},{"lastName":"Rutz","firstName":"Werner"},{"lastName":"Saalmann","firstName":"Sebastian"},{"lastName":"Scherer","firstName":"Roman"},{"lastName":"Schneider","firstName":"Manuel Ansgar"},{"lastName":"Schröder","firstName":"Daniel"},{"lastName":"Skibbe","firstName":"Henning Hartmut"},{"lastName":"Skrotzki","firstName":"Christopher Frank"},{"lastName":"Sommer","firstName":"Lukas"},{"lastName":"Stelter","firstName":"Calvin"},{"lastName":"Summers","firstName":"Alan James"},{"lastName":"Sylwester","firstName":"Manfred"},{"lastName":"Timm","firstName":"Günter Wilhelm Ernst"},{"lastName":"Vranchev","firstName":"Tsvetan Georgiev"},{"lastName":"Waterböhr","firstName":"Denny"},{"lastName":"Waterböhr","firstName":"Micha"},{"lastName":"Wendt","firstName":"Fernando Daniel"},{"lastName":"Wenke","firstName":"Sven-Marek"},{"lastName":"Whipple","firstName":"Dane"},{"lastName":"Wiborny","firstName":"Thorsten Andreas"},{"lastName":"Wiehe","firstName":"Oliver Norman"},{"lastName":"Wittkopp","firstName":"Martin"},{"lastName":"Wolf","firstName":"Matthias Hermann"},{"lastName":"Wolf","firstName":"Michael Jakob"},{"lastName":"Wolff","firstName":"Reinhold Werner"},{"lastName":"Azumah","firstName":"Nkrumah"},{"lastName":"Ghadimpur","firstName":"Behrouz"},{"lastName":"Igbineweka Egbon","firstName":"Richard"},{"lastName":"Iskandary","firstName":"Sayed Islam"},{"lastName":"Jotic","firstName":"Nebojsa (Bilal)"},{"lastName":"Kuttu","firstName":"Vincent"},{"lastName":"Lehmann","firstName":"Stephan"},{"lastName":"Muzafari","firstName":"Hamid"},{"lastName":"Öcel","firstName":"Vedat"},{"lastName":"Odoom","firstName":"Feni Edward"},{"lastName":"Pilay Sanchez","firstName":"Victor Rene"},{"lastName":"Sabbaghian Peiro","firstName":"Arshia"},{"lastName":"Steckel","firstName":"Marvin"},{"lastName":"Taheri","firstName":"Ali Akbar"},{"lastName":"Yeboah","firstName":"Joseph Kwame"},{"lastName":"Yousefvand","firstName":"Ahmat"},{"lastName":"Kisters","firstName":"Andre (ist ältester!)"}]
-
-
 export const handleCreatePerson = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     
@@ -114,3 +109,22 @@ export const handleCreatePerson = () => {
 };
 
 // #endregion 
+
+// #region SEARCH_PERSON
+export const SEARCH_PERSON = "SEARCH_PERSON";
+export function searchPerson(searchTerm) {
+  return {
+    type: SEARCH_PERSON,
+    search: searchTerm
+  };
+}
+
+export function handleOnSearchParticipants(searchTerm) {
+  return dispatch => {
+    dispatch(showLoading());
+    dispatch(searchPerson(searchTerm));
+    dispatch(hideLoading());
+  };
+}
+
+// #endregion
