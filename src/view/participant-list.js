@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
+import AvatarFullScreen from "./avatar-full-screen";
 
 import {
   handleReciverParticipants,
@@ -19,6 +20,11 @@ import {
   handleCreatePerson
 } from "../store/actions/participants";
 class ParticipantList extends Component {
+  state = {
+    openAvatarFullScreen: false,
+    personSelected: {}
+  };
+
   handleToggle = (field, attendance) => () => {
     attendance[field] = !attendance[field];
     this.props.handleUpdateAtendence(attendance);
@@ -27,27 +33,45 @@ class ParticipantList extends Component {
     // this.setState({ ...this.state, list });
   };
 
+  handleAvatarFullScreenClose = () => {
+    this.setState({
+      openAvatarFullScreen: false,
+    });
+  };
+
+  handleAvatarFullScreenShow = (personSelected) => () => {
+    this.setState({
+      openAvatarFullScreen: true,
+      personSelected
+    });
+  };
+
   update() {
     this.props.handleCreatePerson();
   }
 
   render() {
     const { classes, list } = this.props;
-    // const { list = [] } = this.state;
+    const { openAvatarFullScreen,personSelected } = this.state;
 
     return (
       <List className={classes.root}>
-        {/* <button onClick={()=>{this.update()}}>button</button> */}
+        <AvatarFullScreen
+          handleClose={this.handleAvatarFullScreenClose}
+          open={openAvatarFullScreen}
+          person={personSelected}
+        />
         {list.length > 0 &&
           list.map(
-            ({ attendance, firstName, lastName, office, avatar }, idx) => (
-              <Fragment key={attendance.id}>
+            ({ attendance, firstName, lastName, office, avatar, id }, idx) => (
+              <Fragment key={idx}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
                     <Avatar
                       alt={firstName}
                       src={avatar}
                       className={classes.avatar}
+                      onClick={this.handleAvatarFullScreenShow({id,avatar,firstName,lastName,office})}
                     />
                   </ListItemAvatar>
 
@@ -98,37 +122,49 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
   const { search } = participants;
   const list =
     attendances && persons
-      ? persons.filter(filter=> filter.fullName.includes(search)).map(it => {
-          const filtered = attendances.filter(
-            filter =>
-              filter.personId === it.id && filter.scheduleId === scheduleId
-          );
+      ? persons
+          .filter(filter => filter.fullName.includes(search))
+          .map(it => {
+            const filtered = attendances.filter(
+              filter =>
+                filter.personId === it.id && filter.scheduleId === scheduleId
+            );
 
-          if (filtered.length > 0) {
-            const { id, quorum, sacramental } = filtered[0];
+            if (filtered.length > 0) {
+              const { id, quorum, sacramental } = filtered[0];
 
-            return {
-              ...it,
-              attendance: { id, quorum, sacramental, personId : it.id , scheduleId  }
-               
-            };
-          } else {
-            return {
-              ...it,
-              attendance: { quorum: false, sacramental: false, personId : it.id , scheduleId  }
-            };
-          }
-        })
+              return {
+                ...it,
+                attendance: {
+                  id,
+                  quorum,
+                  sacramental,
+                  personId: it.id,
+                  scheduleId
+                }
+              };
+            } else {
+              return {
+                ...it,
+                attendance: {
+                  quorum: false,
+                  sacramental: false,
+                  personId: it.id,
+                  scheduleId
+                }
+              };
+            }
+          })
       : [];
 
   return {
-    list: list ? list.sort((a,b)=> {
-        if (a.lastName > b.lastName) 
-          return 1; 
-        else if (a.lastName < b.lastName) 
-          return -1; 
-        return 0; 
-      }) : []
+    list: list
+      ? list.sort((a, b) => {
+          if (a.lastName > b.lastName) return 1;
+          else if (a.lastName < b.lastName) return -1;
+          return 0;
+        })
+      : []
   };
 }
 
