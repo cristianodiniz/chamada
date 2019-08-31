@@ -160,6 +160,7 @@ const styles = {
     flexGrow: 1,
     objectFit: "contain",
     minHeight: "70vh",
+    width: "100%",
   },
   name: {
     flex: 1,
