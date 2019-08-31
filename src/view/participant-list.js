@@ -7,12 +7,15 @@ import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
+import { withRouter } from "react-router-dom";
+
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 import AvatarFullScreen from "./avatar-full-screen";
+import LongPress from "react-long";
 
 import {
   handleReciverParticipants,
@@ -35,11 +38,11 @@ class ParticipantList extends Component {
 
   handleAvatarFullScreenClose = () => {
     this.setState({
-      openAvatarFullScreen: false,
+      openAvatarFullScreen: false
     });
   };
 
-  handleAvatarFullScreenShow = (personId) => () => {
+  handleAvatarFullScreenShow = personId => () => {
     this.setState({
       openAvatarFullScreen: true,
       personIdSelected: personId
@@ -52,7 +55,7 @@ class ParticipantList extends Component {
 
   render() {
     const { classes, list } = this.props;
-    const { openAvatarFullScreen,personIdSelected } = this.state;
+    const { openAvatarFullScreen, personIdSelected } = this.state;
 
     return (
       <List className={classes.root}>
@@ -62,44 +65,48 @@ class ParticipantList extends Component {
           personId={personIdSelected}
         />
         {list.length > 0 &&
-          list.map(
-            ({ attendance, firstName, lastName, avatar, id }, idx) => (
-              <Fragment key={idx}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
+          list.map(({ attendance, firstName, lastName, avatar, id }, idx) => (
+            <Fragment key={idx}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar onClick={this.handleAvatarFullScreenShow(id)}>
+                  <LongPress
+                    time={1000}
+                    onLongPress={ ()=> {
+                      this.props.history.push('/persons/'+id)
+                    }}
+                    onPress={() => {
+                      this.handleAvatarFullScreenShow(id);
+                    }}
+                  >
                     <Avatar
                       alt={firstName}
                       src={avatar}
                       className={classes.avatar}
-                      onClick={this.handleAvatarFullScreenShow(id)}
                     />
-                  </ListItemAvatar>
+                  </LongPress>
+                </ListItemAvatar>
 
-                  <ListItemText
-                    primary={`${lastName}, ${firstName}`}
-                    secondary={
-                      <span className={classes.attendence}>
-                        <Checker
-                          title={"Sacramental?"}
-                          onChange={this.handleToggle(
-                            "sacramental",
-                            attendance
-                          )}
-                          checked={attendance.sacramental}
-                        />
-                        <Checker
-                          title={"Quorum?"}
-                          onChange={this.handleToggle("quorum", attendance)}
-                          checked={attendance.quorum}
-                        />
-                      </span>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </Fragment>
-            )
-          )}
+                <ListItemText
+                  primary={`${lastName}, ${firstName}`}
+                  secondary={
+                    <span className={classes.attendence}>
+                      <Checker
+                        title={"Sacramental?"}
+                        onChange={this.handleToggle("sacramental", attendance)}
+                        checked={attendance.sacramental}
+                      />
+                      <Checker
+                        title={"Quorum?"}
+                        onChange={this.handleToggle("quorum", attendance)}
+                        checked={attendance.quorum}
+                      />
+                    </span>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </Fragment>
+          ))}
       </List>
     );
   }
@@ -180,4 +187,4 @@ export default compose(
     mapDispatchToProps
   ),
   firestoreConnect([{ collection: "persons" }, { collection: "attendances" }])
-)(withStyles(styles)(ParticipantList));
+)(withRouter(withStyles(styles)(ParticipantList)));
