@@ -158,7 +158,8 @@ const styles = {
   },
   image: {
     flexGrow: 1,
-    objectFit: "contain"
+    objectFit: "contain",
+    minHeight: "70vh",
   },
   name: {
     flex: 1,
