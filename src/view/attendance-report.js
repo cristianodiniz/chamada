@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 
 import Box from "@material-ui/core/Box";
 
-import SearchAppBar from "./search-app-bar";
+import AppToolBar from "./app-tool-bar";
 import ParticipantList from "./participant-list";
 import { handleOnSearchParticipants } from "../store/actions/participants";
 
@@ -14,7 +14,7 @@ class MarkAttendance extends Component {
     const scheduleId =  match ? match.params.scheduleId : null
     return (
       <Box>
-        <SearchAppBar onSearch ={handleOnSearchParticipants} />
+        <AppToolBar onSearch ={handleOnSearchParticipants} />
         { scheduleId && <ParticipantList scheduleId={scheduleId} />}
       </Box>
     );
