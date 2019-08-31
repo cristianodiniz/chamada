@@ -22,7 +22,7 @@ import {
 class ParticipantList extends Component {
   state = {
     openAvatarFullScreen: false,
-    personSelected: {}
+    personIdSelected: null
   };
 
   handleToggle = (field, attendance) => () => {
@@ -39,10 +39,10 @@ class ParticipantList extends Component {
     });
   };
 
-  handleAvatarFullScreenShow = (personSelected) => () => {
+  handleAvatarFullScreenShow = (personId) => () => {
     this.setState({
       openAvatarFullScreen: true,
-      personSelected
+      personIdSelected: personId
     });
   };
 
@@ -52,18 +52,18 @@ class ParticipantList extends Component {
 
   render() {
     const { classes, list } = this.props;
-    const { openAvatarFullScreen,personSelected } = this.state;
+    const { openAvatarFullScreen,personIdSelected } = this.state;
 
     return (
       <List className={classes.root}>
         <AvatarFullScreen
           handleClose={this.handleAvatarFullScreenClose}
           open={openAvatarFullScreen}
-          person={personSelected}
+          personId={personIdSelected}
         />
         {list.length > 0 &&
           list.map(
-            ({ attendance, firstName, lastName, office, avatar, id }, idx) => (
+            ({ attendance, firstName, lastName, avatar, id }, idx) => (
               <Fragment key={idx}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
@@ -71,7 +71,7 @@ class ParticipantList extends Component {
                       alt={firstName}
                       src={avatar}
                       className={classes.avatar}
-                      onClick={this.handleAvatarFullScreenShow({id,avatar,firstName,lastName,office})}
+                      onClick={this.handleAvatarFullScreenShow(id)}
                     />
                   </ListItemAvatar>
 

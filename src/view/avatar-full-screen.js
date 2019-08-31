@@ -1,4 +1,8 @@
 import React, { Fragment, Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,33 +12,81 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-// import EditIcon from "@material-ui/icons/Edit";
+
+import { handleUpdatePerson } from "../store/actions/participants";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 class AvatarFullScreen extends Component {
-  inputFileComponet= ""
-  constructor(props){
+  inputFileComponet = "";
+  constructor(props) {
     super(props);
     this.inputFileComponet = React.createRef();
-    this.handlerUpdateImage = this.handlerUpdateImage.bind(props.person).bind(this);
+    this.handlerUpdateImage = this.handlerUpdateImage.bind(this);
   }
- 
 
   handlerUpdateImage = () => {
-    // inputFileComponet
-    const {person} = this.props 
-    debugger;
-   // this.inputFileComponet;
-   this.inputFileComponet.current.click();
-    console.log("update image", person,this.inputFileComponet);
+    this.inputFileComponet.current.click();
+  };
+
+  handlerFileSelected = evt => {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    const file = evt.target.files[0];
+    const metadata = {
+      contentType: file.type
+    };
+
+    const {
+      firebase: { storage },
+      person,
+      personId
+    } = this.props;
+    const storageRef = storage().ref();
+
+    storageRef
+      .child("images/" + file.name)
+      .put(file, metadata)
+      .then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((url) => {
+          this.props.handleUpdatePerson(personId,{ ...person,avatar:url });
+          console.log("File available at", url);
+        });
+      })
+      .catch(function(error) {
+        // [START onfailure]
+        console.error("Upload failed:", error);
+        // [END onfailure]
+      });
+
+    // const selectedFile = e.target.files[0];
+    // const reader = new FileReader();
+
+    // const imgtag = document.getElementById("myimage");
+    // imgtag.title = selectedFile.name;
+
+    // reader.onload = function(event) {
+    //   imgtag.src = event.target.result;
+    // };
+
+    // reader.readAsDataURL(selectedFile);
   };
 
   render() {
-    
-    const { handleClose, open, person, classes } = this.props;
+    const {
+      handleClose,
+      open,
+      person: { firstName, officer, lastName, avatar },
+      classes,
+      isNotReady
+    } = this.props;
+
+    if (isNotReady) {
+      return <h1>Is not ready</h1>;
+    }
 
     return (
       <Fragment>
@@ -68,26 +120,24 @@ class AvatarFullScreen extends Component {
               id="upload"
               ref={this.inputFileComponet}
               className={classes.inputFile}
+              onChange={this.handlerFileSelected}
               type="file"
               accept="image/*"
               multiple={false}
             />
             <img
               className={classes.image}
-              src={person.avatar}
-              alt={person.firstName}
+              src={avatar}
+              alt={firstName}
               onClick={this.handlerUpdateImage}
             />
 
             <Typography variant="h6" className={classes.name}>
-              {`${person.lastName}, ${person.firstName}`}
+              {`${lastName}, ${firstName}`}
             </Typography>
             <Typography variant="h6" className={classes.name}>
-              {`${person.officer ? person.officer : ""}`}
+              {`${officer ? officer : ""}`}
             </Typography>
-            {/* <Typography variant="h6" className={classes.title}>
-            {person.firstName}
-          </Typography> */}
           </div>
         </Dialog>
       </Fragment>
@@ -95,12 +145,11 @@ class AvatarFullScreen extends Component {
   }
 }
 
-const useStyles = {
+const styles = {
   appBar: {
     position: "relative"
   },
   title: {
-    // marginLeft: theme.spacing(2),
     flex: 1,
     alignSelf: "center"
   },
@@ -114,7 +163,6 @@ const useStyles = {
     objectFit: "contain"
   },
   name: {
-    // marginLeft: theme.spacing(2),
     flex: 1,
     alignSelf: "center"
   },
@@ -126,4 +174,26 @@ const useStyles = {
   }
 };
 
-export default withStyles(useStyles)(AvatarFullScreen);
+function mapStateToProps(
+  {
+    firestore: {
+      data: { persons }
+    }
+  },
+  { personId }
+) {
+  debugger;
+  const person = persons ? persons[personId] : null;
+  return { isNotReady: !person, person: person ? person : {} };
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ handleUpdatePerson }, dispatch);
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "persons" }])
+)(withStyles(styles)(AvatarFullScreen));
