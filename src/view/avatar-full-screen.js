@@ -83,13 +83,11 @@ class AvatarFullScreen extends Component {
       classes,
       isNotReady
     } = this.props;
-
-    if (isNotReady) {
-      return <h1>Is not ready</h1>;
-    }
-
+    
     return (
-      <Fragment>
+
+      isNotReady ? <Fragment></Fragment>
+      : <Fragment>
         <Dialog
           fullScreen
           open={open}
@@ -174,15 +172,7 @@ const styles = {
   }
 };
 
-function mapStateToProps(
-  {
-    firestore: {
-      data: { persons }
-    }
-  },
-  { personId }
-) {
-  debugger;
+function mapStateToProps({ firestore: { data: { persons } } }, { personId } ) {
   const person = persons ? persons[personId] : null;
   return { isNotReady: !person, person: person ? person : {} };
 }
