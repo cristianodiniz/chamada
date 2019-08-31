@@ -1,9 +1,9 @@
 import React from "react";
-import SearchAppBar from "./search-app-bar";
+import SearchAppBar from "./app-tool-bar";
 import renderer from "react-test-renderer";
 import ReactDOM from "react-dom";
 
-describe("Search App Bar Tests Component", function() {
+describe("App Tool Bar Tests Component", function() {
   it("Should render without crashing", async done => {
     const div = document.createElement("div");
     ReactDOM.render(<SearchAppBar />, div);

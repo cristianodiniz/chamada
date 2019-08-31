@@ -68,7 +68,7 @@ const handlerOnChangeSearch = (onSearch) => (e) => {
   onSearch && onSearch(e.target.value)
 }
 
-export default function SearchAppBar(props) {
+export default function AppToolBar(props) {
   const classes = useStyles();
   const { onSearch } = props;
   
