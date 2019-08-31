@@ -123,7 +123,7 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
   const list =
     attendances && persons
       ? persons
-          .filter(filter => filter.fullName.includes(search))
+          .filter(filter => filter.fullName.toUpperCase().includes(search.toUpperCase()))
           .map(it => {
             const filtered = attendances.filter(
               filter =>
