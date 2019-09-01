@@ -7,19 +7,60 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AppToolBar from "./app-tool-bar";
 
+import PictureSelector from "./picture-selector";
+
 import { handleUpdatePerson } from "../store/actions/participants";
 
 class PersonDetails extends Component {
-  
-  handlerChangeImage = () => {};
+  state = { isPictureSelectorOpen: false };
 
-  renderDetailsBody = ({ firstName, officer, lastName, avatar },classes) => (
+  handlePictureSelectorOpen = () => {
+    this.setState({
+      isPictureSelectorOpen: true
+    });
+  };
+
+  handlePictureSelectorClose = () => {
+    this.setState({
+      isPictureSelectorOpen: false
+    });
+  };
+
+  handlePictureSelectorOnSave = file => {
+      const metadata = {
+        contentType: file.type
+      };
+  
+      const {
+        firebase: { storage },
+        person,
+        personId
+      } = this.props;
+      const storageRef = storage().ref();
+  
+      storageRef
+        .child("images/" + file.name)
+        .put(file, metadata)
+        .then((snapshot) => {
+          snapshot.ref.getDownloadURL().then((url) => {
+            this.props.handleUpdatePerson(personId,{ ...person,avatar:url });
+            console.log("File available at", url);
+          });
+        })
+        .catch(function(error) {
+          // [START onfailure]
+          console.error("Upload failed:", error);
+          // [END onfailure]
+        });  
+  };
+
+  renderDetailsBody = ({ firstName, officer, lastName, avatar }, classes) => (
     <div className={classes.imageContainer}>
       <img
         className={classes.image}
         src={avatar}
         alt={firstName}
-        onClick={this.handlerChangeImage}
+        onClick={this.handlePictureSelectorOpen}
       />
 
       <Typography variant="h6" className={classes.name}>
@@ -32,11 +73,17 @@ class PersonDetails extends Component {
   );
 
   render() {
-    const { person, classes, isReady} = this.props;
+    const { person, classes, isReady } = this.props;
+    const { isPictureSelectorOpen } = this.state;
     return (
       <Fragment>
         <AppToolBar />
-        {isReady && this.renderDetailsBody(person,classes)}
+        <PictureSelector
+          isOpen={isPictureSelectorOpen}
+          handleClose={this.handlePictureSelectorClose}
+          onSave={this.handlePictureSelectorOnSave}
+        />
+        {isReady && this.renderDetailsBody(person, classes)}
       </Fragment>
     );
   }
@@ -72,10 +119,11 @@ const styles = {
   }
 };
 
-function mapStateToProps({ firestore }, { personId }) {
+function mapStateToProps({ firestore }, { match }) {
+  const { personId } = match ? match.params : "";
   const { persons } = firestore.data;
-  const person = persons ? persons[personId] : null;
-  return { isNotReady: !!person, person: person ? person : {} };
+  const person = persons && personId ? persons[personId] : null;
+  return { isReady: !!person, person: person ? person : {} };
 }
 
 const mapDispatchToProps = dispatch =>

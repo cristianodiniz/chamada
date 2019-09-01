@@ -7,13 +7,13 @@ import ReactDOM from "react-dom";
 describe("Picture Selector Tests Component", function() {
   it("Should render without crashing", async done => {
     const div = document.createElement("div");
-    ReactDOM.render(<PictureSelector />, div);
+    ReactDOM.render(<PictureSelector isOpen={true}/>, div);
     ReactDOM.unmountComponentAtNode(div);
     done();
   }, 10000);
 
   test("Should Match Snapshot", async done => {
-    const component = renderer.create(<PictureSelector />);
+    const component = renderer.create(<PictureSelector isOpen={true}/>);
 
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

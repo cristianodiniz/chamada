@@ -1,15 +1,17 @@
-import React, { Fragment, Component } from "react";
+import React, { Component } from "react";
 
 import CameraIcon from "@material-ui/icons/CameraAlt";
 import FileIcon from "@material-ui/icons/Filter";
-import CancelIcon from "@material-ui/icons/Cancel";
-import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-
 import { withStyles } from "@material-ui/core/styles";
+import Camera from "react-html5-camera-photo";
+import "react-html5-camera-photo/build/css/index.css";
+
+import DialogFullScreen from "./dialog-full-screen";
 
 class PictureSelector extends Component {
+  state = { mode: "preview" };
   inputFile = "";
   imagePreview = "";
   constructor(props) {
@@ -21,38 +23,57 @@ class PictureSelector extends Component {
 
   handlerOpenGaleryImage = () => {
     this.inputFile.current.click();
+    this.setState({ mode: "preview" });
+  };
+
+  handlerOpenCamera = () => {
+    this.setState({ mode: "camera" });
   };
 
   handlerFileSelected = evt => {
     evt.stopPropagation();
     evt.preventDefault();
     const file = evt.target.files[0];
-    const fr = new FileReader()
-    fr.readAsDataURL(file)
-    fr.onload = (e) => {
-      this.imagePreview.current.src = e.target.result
-    } 
-  
+    const fr = new FileReader();
+    fr.readAsDataURL(file);
+    fr.onload = e => {
+      this.imagePreview.current.src = e.target.result;
+    };
   };
 
   handlerOnConfirm = () => {
-    this.props.onConfirm && this.props.onConfirm(this.inputFile.files[0])
-    this.clear()
-  }
+    this.props.onConfirm && this.props.onSave(this.inputFile.files[0]);
+    this.props.handleClose();
+  };
 
   handlerOnCancel = () => {
-    this.props.onCancel && this.props.onCancel()
-    this.clear()
-  }
+    this.props.handleClose();
+  };
 
-  clear = () =>{
+  clear = () => {
     this.inputFile.current.value = "";
     this.imagePreview.current.src = "";
+  };
+
+  onTakePhoto(dataUri) {
+    // Do stuff with the dataUri photo...
+    // debugger
+    this.imagePreview.current.src = dataUri
+    console.log("takePhoto",dataUri);
+    this.setState({ mode: "preview" });
   }
+
   render() {
-    const { classes } = this.props;
+    const { classes, isOpen } = this.props;
+    const { mode } = this.state;
+
     return (
-      <Fragment>
+      <DialogFullScreen
+        open={isOpen}
+        title={"Picture Selector"}
+        onClose={this.handlerOnCancel}
+        onSave={this.handlerOnConfirm}
+      >
         <Container className={classes.root}>
           <h3>Choose the option:</h3>
           <div className={classes.buttons}>
@@ -60,6 +81,7 @@ class PictureSelector extends Component {
               variant="contained"
               color="default"
               className={classes.button}
+              onClick={this.handlerOpenCamera}
             >
               Camera
               <CameraIcon className={classes.rightIcon} />
@@ -75,28 +97,10 @@ class PictureSelector extends Component {
             </Button>
           </div>
           <div className={classes.preview}>
-            <img ref={this.imagePreview} className={classes.imagePreview}></img>
-          </div>
-
-          <div className={classes.buttons}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              onClick={this.handlerOnCancel}
-            >
-              Cancel
-              <CancelIcon className={classes.rightIcon} />
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={this.handlerOnConfirm}
-            >
-              Confirm
-              <DoneIcon className={classes.rightIcon} />
-            </Button>
+            <Camera className={{...classes.imagePreview, ...(mode !== "camera") ? {} : classes.hide } } 
+                onTakePhoto={dataUri => { this.onTakePhoto(dataUri); }} /> 
+            <img className={ {...classes.imagePreview,...(mode === "camera") ? {} : classes.hide } } 
+              ref={this.imagePreview} alt="preview" />
           </div>
           <input
             id="upload"
@@ -108,7 +112,7 @@ class PictureSelector extends Component {
             multiple={false}
           />
         </Container>
-      </Fragment>
+      </DialogFullScreen>
     );
   }
 }
@@ -130,14 +134,16 @@ const styles = {
   preview: {
     minHeight: "300px",
     background: "#e0e0e0e0",
-    padding:"8px",
-    display:"flex"
+    padding: "8px",
+    display: "flex"
   },
-  imagePreview:{
+  imagePreview: {
     objectFit: "contain",
     width: "100%"
+  },
+  hide: {
+   display:"none"
   }
-
 };
 
 export default withStyles(styles)(PictureSelector);

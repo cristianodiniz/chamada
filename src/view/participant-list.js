@@ -15,7 +15,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Checker from "./checker";
 import AvatarFullScreen from "./avatar-full-screen";
-import LongPress from "react-long";
+
 
 import {
   handleReciverParticipants,
@@ -68,22 +68,13 @@ class ParticipantList extends Component {
           list.map(({ attendance, firstName, lastName, avatar, id }, idx) => (
             <Fragment key={idx}>
               <ListItem alignItems="flex-start">
-                <ListItemAvatar onClick={this.handleAvatarFullScreenShow(id)}>
-                  <LongPress
-                    time={1000}
-                    onLongPress={ ()=> {
-                      this.props.history.push('/persons/'+id)
-                    }}
-                    onPress={() => {
-                      this.handleAvatarFullScreenShow(id);
-                    }}
-                  >
-                    <Avatar
-                      alt={firstName}
-                      src={avatar}
-                      className={classes.avatar}
-                    />
-                  </LongPress>
+                <ListItemAvatar>
+                  <Avatar
+                    alt={firstName}
+                    src={avatar}
+                    className={classes.avatar}
+                    onClick={()=>this.props.history.push("/persons/" + id)}
+                  />
                 </ListItemAvatar>
 
                 <ListItemText
@@ -130,7 +121,9 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
   const list =
     attendances && persons
       ? persons
-          .filter(filter => filter.fullName.toUpperCase().includes(search.toUpperCase()))
+          .filter(filter =>
+            filter.fullName.toUpperCase().includes(search.toUpperCase())
+          )
           .map(it => {
             const filtered = attendances.filter(
               filter =>
