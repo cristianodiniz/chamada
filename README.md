@@ -9,7 +9,7 @@
 
 
 
-This project is an easy way to make attendance reports using as data base google spreadsheets
+This project is an easy way to make attendance reports
 
 
 ## Author
