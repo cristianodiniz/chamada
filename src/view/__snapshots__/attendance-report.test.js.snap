@@ -47,7 +47,7 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
       <h6
         className="MuiTypography-root makeStyles-title-124 MuiTypography-h6 MuiTypography-noWrap"
       >
-        Material-UI
+        Chamada
       </h6>
       <div
         className="makeStyles-search-125"

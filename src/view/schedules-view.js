@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 
 import Box from "@material-ui/core/Box";
 
-import SearchAppBar from "./search-app-bar";
+import AppToolBar from "./app-tool-bar";
 import Schedules from "./schedules";
 
 import { handleOnSearchSchedules } from "../store/actions/schedules";
@@ -14,7 +14,7 @@ class SchedulesView extends Component {
     const {handleOnSearchSchedules} = this.props
     return (
       <Box>
-        <SearchAppBar onSearch ={handleOnSearchSchedules}  />
+        <AppToolBar onSearch ={handleOnSearchSchedules}  />
         <Schedules />
       </Box>
     );

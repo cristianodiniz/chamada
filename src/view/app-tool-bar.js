@@ -68,9 +68,9 @@ const handlerOnChangeSearch = (onSearch) => (e) => {
   onSearch && onSearch(e.target.value)
 }
 
-export default function SearchAppBar(props) {
+export default function AppToolBar(props) {
   const classes = useStyles();
-  const { onSearch } = props;
+  const { onSearch ,title } = props;
   
   return (
     <Fragment>
@@ -85,7 +85,7 @@ export default function SearchAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            {title ? title : "Chamada"}
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

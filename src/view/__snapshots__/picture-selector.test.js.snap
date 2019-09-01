@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picture Selector Tests Component Should Match Snapshot 1`] = `
+<div
+  className="MuiContainer-root PictureSelector-root-44 MuiContainer-maxWidthLg"
+>
+  <h3>
+    Choose the option:
+  </h3>
+  <div
+    className="PictureSelector-buttons-46"
+  >
+    <button
+      className="MuiButtonBase-root MuiButton-root PictureSelector-button-47 MuiButton-contained"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Camera
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root PictureSelector-rightIcon-48"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="3.2"
+          />
+          <path
+            d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+          />
+        </svg>
+      </span>
+    </button>
+    <button
+      className="MuiButtonBase-root MuiButton-root PictureSelector-button-47 MuiButton-contained"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Galary
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root PictureSelector-rightIcon-48"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.96 10.29l-2.75 3.54-1.96-2.36L8.5 15h11l-3.54-4.71zM3 5H1v16c0 1.1.9 2 2 2h16v-2H3V5zm18-4H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 16H7V3h14v14z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    className="PictureSelector-preview-49"
+  >
+    <img
+      className="PictureSelector-imagePreview-50"
+    />
+  </div>
+  <div
+    className="PictureSelector-buttons-46"
+  >
+    <button
+      className="MuiButtonBase-root MuiButton-root PictureSelector-button-47 MuiButton-contained MuiButton-containedSecondary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Cancel
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root PictureSelector-rightIcon-48"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+          />
+        </svg>
+      </span>
+    </button>
+    <button
+      className="MuiButtonBase-root MuiButton-root PictureSelector-button-47 MuiButton-contained MuiButton-containedPrimary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Confirm
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root PictureSelector-rightIcon-48"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <input
+    accept="image/*"
+    className="PictureSelector-inputFile-45"
+    id="upload"
+    multiple={false}
+    onChange={[Function]}
+    type="file"
+  />
+</div>
+`;

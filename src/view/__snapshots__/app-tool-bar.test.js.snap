@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search App Bar Tests Component Should Match Snapshot 1`] = `
+exports[`App Tool Bar Tests Component Should Match Snapshot 1`] = `
 Array [
   <header
     className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-118 MuiAppBar-colorPrimary mui-fixed"
@@ -45,7 +45,7 @@ Array [
       <h6
         className="MuiTypography-root makeStyles-title-120 MuiTypography-h6 MuiTypography-noWrap"
       >
-        Material-UI
+        Chamada
       </h6>
       <div
         className="makeStyles-search-121"
