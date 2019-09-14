@@ -8,6 +8,8 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
+import MainMenu from './main-menu'
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -72,6 +74,16 @@ export default function AppToolBar(props) {
   const classes = useStyles();
   const { onSearch, title } = props;
 
+  const [state, setState] = React.useState({
+    open: false,
+  });
+
+  const toggleDrawerMenu = () => {
+    
+    setState({ ...state, open: !state.open });
+  };
+
+
   return (
     <Fragment>
       <AppBar className={classes.root} position="fixed">
@@ -81,6 +93,7 @@ export default function AppToolBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
+            onClick={toggleDrawerMenu}
           >
             <MenuIcon />
           </IconButton>
@@ -106,6 +119,8 @@ export default function AppToolBar(props) {
         </Toolbar>
       </AppBar>
       <div className={classes.space} />
+      <MainMenu open={state.open}
+                onClose={toggleDrawerMenu}/>
     </Fragment>
   );
 }
