@@ -4,6 +4,7 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   list: {
@@ -20,13 +21,16 @@ export default function MainMenu(props) {
   return (
     <Drawer open={props.open} onClose={props.onClose}>
       <List className={classes.list}>
-        <ListItem button key={"Home"}>
-          <ListItemText primary={"Home"} />
-        </ListItem>
-
-        <ListItem button key={"Report"}>
-          <ListItemText primary={"Report"} />
-        </ListItem>
+        <Link to={"/"}>
+          <ListItem button key={"Home"}>
+            <ListItemText primary={"Home"} />
+          </ListItem>
+        </Link>
+        <Link to={"/report"}>
+          <ListItem button key={"Report"}>
+            <ListItemText primary={"Report"} />
+          </ListItem>
+        </Link>
       </List>
     </Drawer>
   );
