@@ -197,7 +197,6 @@ export const handleCreatePerson = () => {
 // #region UPDATE PERSON
 export const handleUpdatePerson = (personId,person) => {
   return (dispatch, _getState, { getFirestore }) => {
-    debugger
     const firestore = getFirestore();
     dispatch(showLoading);
     const ref = firestore.collection("persons");

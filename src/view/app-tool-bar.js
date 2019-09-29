@@ -8,6 +8,8 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
+import MainMenu from './main-menu'
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -64,14 +66,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const handlerOnChangeSearch = (onSearch) => (e) => {
-  onSearch && onSearch(e.target.value)
-}
+const handlerOnChangeSearch = onSearch => e => {
+  onSearch && onSearch(e.target.value);
+};
 
 export default function AppToolBar(props) {
   const classes = useStyles();
-  const { onSearch ,title } = props;
-  
+  const { onSearch, title } = props;
+
+  const [state, setState] = React.useState({
+    open: false,
+  });
+
+  const toggleDrawerMenu = () => {
+    
+    setState({ ...state, open: !state.open });
+  };
+
+
   return (
     <Fragment>
       <AppBar className={classes.root} position="fixed">
@@ -81,29 +93,34 @@ export default function AppToolBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
+            onClick={toggleDrawerMenu}
           >
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             {title ? title : "Chamada"}
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          {onSearch && (
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                onChange={handlerOnChangeSearch(onSearch)}
+                inputProps={{ "aria-label": "Search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              onChange={handlerOnChangeSearch(onSearch)}
-              inputProps={{ "aria-label": "Search" }}
-            />
-          </div>
+          )}
         </Toolbar>
       </AppBar>
       <div className={classes.space} />
+      <MainMenu open={state.open}
+                onClose={toggleDrawerMenu}/>
     </Fragment>
   );
 }
