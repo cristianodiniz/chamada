@@ -2,19 +2,20 @@
 
 exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-121"
+  className="MuiBox-root MuiBox-root-135"
 >
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-122 MuiAppBar-colorPrimary mui-fixed"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-136 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-123 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-137 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
+        onClick={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -45,15 +46,15 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
         </span>
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-124 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-138 MuiTypography-h6 MuiTypography-noWrap"
       >
         Chamada
       </h6>
       <div
-        className="makeStyles-search-125"
+        className="makeStyles-search-139"
       >
         <div
-          className="makeStyles-searchIcon-126"
+          className="makeStyles-searchIcon-140"
         >
           <svg
             aria-hidden="true"
@@ -68,12 +69,12 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
           </svg>
         </div>
         <div
-          className="MuiInputBase-root makeStyles-inputRoot-127"
+          className="MuiInputBase-root makeStyles-inputRoot-141"
           onClick={[Function]}
         >
           <input
             aria-label="Search"
-            className="MuiInputBase-input makeStyles-inputInput-128"
+            className="MuiInputBase-input makeStyles-inputInput-142"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -85,7 +86,7 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
     </div>
   </header>
   <div
-    className="makeStyles-space-129"
+    className="makeStyles-space-143"
   />
 </div>
 `;

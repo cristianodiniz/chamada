@@ -3,16 +3,17 @@
 exports[`Person Details Tests Component Should Match Snapshot 1`] = `
 Array [
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-124 MuiAppBar-colorPrimary mui-fixed"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-164 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-125 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-165 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
+        onClick={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -46,14 +47,14 @@ Array [
         />
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-126 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-166 MuiTypography-h6 MuiTypography-noWrap"
       >
         Chamada
       </h6>
     </div>
   </header>,
   <div
-    className="makeStyles-space-131"
+    className="makeStyles-space-171"
   />,
 ]
 `;
