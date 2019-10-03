@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
-import reducer from "../store/reducers";
-import middleware from "../middleware";
+import reducer from "../../store/reducers";
+import middleware from "../../middleware";
 
 const store = createStore(reducer, middleware);
 

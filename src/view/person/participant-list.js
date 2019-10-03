@@ -11,7 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Checker from "./checker";
+import Checker from "../common/checker";
 import AvatarFullScreen from "./avatar-full-screen";
 
 
@@ -19,7 +19,7 @@ import {
   handleReciverParticipants,
   handleUpdateAtendence,
   handleCreatePerson
-} from "../store/actions/participants";
+} from "../../store/actions/participants";
 class ParticipantList extends Component {
   state = {
     openAvatarFullScreen: false,

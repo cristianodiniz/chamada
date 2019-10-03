@@ -4,10 +4,10 @@ import { bindActionCreators } from "redux";
 
 import Box from "@material-ui/core/Box";
 
-import AppToolBar from "./app-tool-bar";
+import AppToolBar from "../common/app-tool-bar";
 import Schedules from "./schedules";
 
-import { handleOnSearchSchedules } from "../store/actions/schedules";
+import { handleOnSearchSchedules } from "../../store/actions/schedules";
 
 class SchedulesView extends Component {
   render() {

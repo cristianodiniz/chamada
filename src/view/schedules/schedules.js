@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import {
   handleReciverSchedules,
   COLLECTION_NAME
-} from "../store/actions/schedules";
+} from "../../store/actions/schedules";
 
 class Schedules extends Component {
   render() {

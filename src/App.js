@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route,Switch, Redirect } from "react-router-do
 import { connect } from "react-redux";
 import LoadingBar from "react-redux-loading";
 
-import AttendanceReport from "./view/attendance-report";
-import SchedulesView from "./view/schedules-view"
-import Login from './view/login'
-import PersonDetails from './view/person-details'
-import Report from './view/report'
+import AttendanceReport from "./view/report/attendance-report";
+import SchedulesView from "./view/schedules/schedules-view"
+import Login from './view/user/login'
+import PersonDetails from './view/person/person-details'
+import Report from './view/report/report'
 import { handlerInitialData } from "./store/actions/shared";
 import "./App.css";
 
