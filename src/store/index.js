@@ -1,14 +1,13 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore } from 'redux'
 
 import reducer from './reducers'
 import middleware from '../middleware'
 
 const initialState = {}
 
-export default () => {
-  return createStore(
+export default () => createStore(
     reducer,
     initialState,
     middleware // to add other middleware
   )
-}
+

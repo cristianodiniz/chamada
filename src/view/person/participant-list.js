@@ -14,12 +14,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Checker from "../common/checker";
 import AvatarFullScreen from "./avatar-full-screen";
 
-
 import {
   handleReciverParticipants,
   handleUpdateAtendence,
-  handleCreatePerson
+  handleCreatePerson,
+  COLLECTION_NAME
 } from "../../store/actions/participants";
+
 class ParticipantList extends Component {
   state = {
     openAvatarFullScreen: false,
@@ -28,10 +29,40 @@ class ParticipantList extends Component {
 
   handleToggle = (field, attendance) => () => {
     attendance[field] = !attendance[field];
-    this.props.handleUpdateAtendence(attendance);
-    // const { list } = this.props;
-    // list[idx].attended[field] = !list[idx].attended[field];
-    // this.setState({ ...this.state, list });
+    // this.props.handleUpdateAtendence(attendance)
+    // return 
+    const { firebase } = this.props;
+    const ref = firebase.firestore().collection(COLLECTION_NAME);
+    if (!attendance.id) {
+      ref
+        .add({
+          ...attendance
+        })
+        .then(response => {
+          console.log("response", response);
+          // dispatch(updateAtendence(atendence));
+          // dispatch(hideLoading);
+        })
+        .catch(error => {
+          // dispatch(createErrorMessage(error));
+          // dispatch(hideLoading);
+        });
+    } else {
+      ref
+        .doc(attendance.id)
+        .update({
+          ...attendance
+        })
+        .then(response => {
+          console.log("response", response);
+          // dispatch(updateAtendence(atendence));
+          // dispatch(hideLoading);
+        })
+        .catch(error => {
+          // dispatch(createErrorMessage(error));
+          // dispatch(hideLoading);
+        });
+    }
   };
 
   handleAvatarFullScreenClose = () => {
@@ -48,7 +79,7 @@ class ParticipantList extends Component {
   };
 
   update() {
-    this.props.handleCreatePerson();
+    // this.props.handleCreatePerson();
   }
 
   render() {
@@ -71,7 +102,7 @@ class ParticipantList extends Component {
                     alt={firstName}
                     src={avatar}
                     className={classes.avatar}
-                    onClick={()=>this.props.history.push("/persons/" + id)}
+                    onClick={() => this.props.history.push("/persons/" + id)}
                   />
                 </ListItemAvatar>
 

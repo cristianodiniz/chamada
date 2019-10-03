@@ -41,10 +41,12 @@ export const updateAtendence = atendence => {
 
 export const handleUpdateAtendence = atendence => {
   return (dispatch, _getState, { getFirebase, getFirestore }) => {
+    
+    debugger
     const firestore = getFirestore();
     dispatch(showLoading);
 
-    const ref = firestore.collection(COLLECTION_NAME);
+    const ref =  firestore.ref(COLLECTION_NAME)
 
     if (!atendence.id) {
       ref
