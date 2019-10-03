@@ -3,17 +3,8 @@ import Schedules from "./schedules";
 import renderer from "react-test-renderer";
 import ReactDOM from "react-dom";
 
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import {renderWithRedux} from '../../config/reduxConfig'
 
-import reducer from "../../store/reducers";
-import middleware from "../../middleware";
-
-const store = createStore(reducer, middleware);
-
-function renderWithRedux(ui) {
-  return <Provider store={store}>{ui}</Provider>;
-}
 
 describe("Schedule Tests Component", function() {
   it("Should render without crashing", async done => {
