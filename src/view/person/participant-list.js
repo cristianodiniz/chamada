@@ -15,11 +15,10 @@ import Checker from "../common/checker";
 import AvatarFullScreen from "./avatar-full-screen";
 
 import {
-  handleReciverParticipants,
-  handleUpdateAtendence,
-  handleCreatePerson,
+  handleUpdateAttendance,
+  handleGetAttendanceList,
   COLLECTION_NAME
-} from "../../store/actions/participants";
+} from "../../store/actions/attendanceActions";
 
 class ParticipantList extends Component {
   state = {
@@ -29,40 +28,8 @@ class ParticipantList extends Component {
 
   handleToggle = (field, attendance) => () => {
     attendance[field] = !attendance[field];
-    // this.props.handleUpdateAtendence(attendance)
-    // return 
-    const { firebase } = this.props;
-    const ref = firebase.firestore().collection(COLLECTION_NAME);
-    if (!attendance.id) {
-      ref
-        .add({
-          ...attendance
-        })
-        .then(response => {
-          console.log("response", response);
-          // dispatch(updateAtendence(atendence));
-          // dispatch(hideLoading);
-        })
-        .catch(error => {
-          // dispatch(createErrorMessage(error));
-          // dispatch(hideLoading);
-        });
-    } else {
-      ref
-        .doc(attendance.id)
-        .update({
-          ...attendance
-        })
-        .then(response => {
-          console.log("response", response);
-          // dispatch(updateAtendence(atendence));
-          // dispatch(hideLoading);
-        })
-        .catch(error => {
-          // dispatch(createErrorMessage(error));
-          // dispatch(hideLoading);
-        });
-    }
+    this.props.handleUpdateAttendance(attendance);
+    
   };
 
   handleAvatarFullScreenClose = () => {
@@ -146,6 +113,11 @@ const styles = {
 
 function mapStateToProps({ firestore, participants }, { scheduleId }) {
   const { attendances, persons } = firestore.ordered;
+  if ( attendances && persons){
+    debugger
+    console.log(JSON.stringify(firestore.ordered))
+  }
+
   const { search } = participants;
   const list =
     attendances && persons
@@ -158,7 +130,7 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
               filter =>
                 filter.personId === it.id && filter.scheduleId === scheduleId
             );
-
+            
             if (filtered.length > 0) {
               const { id, quorum, sacramental } = filtered[0];
 
@@ -199,7 +171,10 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { handleReciverParticipants, handleUpdateAtendence, handleCreatePerson },
+    {
+      handleUpdateAttendance,
+      handleGetAttendanceList
+    },
     dispatch
   );
 
