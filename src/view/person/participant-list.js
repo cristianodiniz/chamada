@@ -17,7 +17,7 @@ import AvatarFullScreen from "./avatar-full-screen";
 import {
   handleUpdateAttendance,
   handleGetAttendanceList,
-  COLLECTION_NAME
+  extractAttendanceListFromFirestore
 } from "../../store/actions/attendanceActions";
 
 class ParticipantList extends Component {
@@ -111,53 +111,8 @@ const styles = {
   }
 };
 
-function mapStateToProps({ firestore, participants }, { scheduleId }) {
-  const { attendances, persons } = firestore.ordered;
-  if ( attendances && persons){
-    debugger
-    console.log(JSON.stringify(firestore.ordered))
-  }
-
-  const { search } = participants;
-  const list =
-    attendances && persons
-      ? persons
-          .filter(filter =>
-            filter.fullName.toUpperCase().includes(search.toUpperCase())
-          )
-          .map(it => {
-            const filtered = attendances.filter(
-              filter =>
-                filter.personId === it.id && filter.scheduleId === scheduleId
-            );
-            
-            if (filtered.length > 0) {
-              const { id, quorum, sacramental } = filtered[0];
-
-              return {
-                ...it,
-                attendance: {
-                  id,
-                  quorum,
-                  sacramental,
-                  personId: it.id,
-                  scheduleId
-                }
-              };
-            } else {
-              return {
-                ...it,
-                attendance: {
-                  quorum: false,
-                  sacramental: false,
-                  personId: it.id,
-                  scheduleId
-                }
-              };
-            }
-          })
-      : [];
-
+function mapStateToProps({ firestore }, { scheduleId }) {
+  const list = extractAttendanceListFromFirestore(firestore.ordered,scheduleId)
   return {
     list: list
       ? list.sort((a, b) => {
