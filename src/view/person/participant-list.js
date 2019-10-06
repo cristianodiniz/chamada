@@ -11,15 +11,15 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Checker from "./checker";
+import Checker from "../common/checker";
 import AvatarFullScreen from "./avatar-full-screen";
 
-
 import {
-  handleReciverParticipants,
-  handleUpdateAtendence,
-  handleCreatePerson
-} from "../store/actions/participants";
+  handleUpdateAttendance,
+  handleGetAttendanceList,
+  extractAttendanceListFromFirestore
+} from "../../store/actions/attendanceActions";
+
 class ParticipantList extends Component {
   state = {
     openAvatarFullScreen: false,
@@ -28,10 +28,8 @@ class ParticipantList extends Component {
 
   handleToggle = (field, attendance) => () => {
     attendance[field] = !attendance[field];
-    this.props.handleUpdateAtendence(attendance);
-    // const { list } = this.props;
-    // list[idx].attended[field] = !list[idx].attended[field];
-    // this.setState({ ...this.state, list });
+    this.props.handleUpdateAttendance(attendance);
+    
   };
 
   handleAvatarFullScreenClose = () => {
@@ -48,7 +46,7 @@ class ParticipantList extends Component {
   };
 
   update() {
-    this.props.handleCreatePerson();
+    // this.props.handleCreatePerson();
   }
 
   render() {
@@ -71,7 +69,7 @@ class ParticipantList extends Component {
                     alt={firstName}
                     src={avatar}
                     className={classes.avatar}
-                    onClick={()=>this.props.history.push("/persons/" + id)}
+                    onClick={() => this.props.history.push("/persons/" + id)}
                   />
                 </ListItemAvatar>
 
@@ -113,48 +111,8 @@ const styles = {
   }
 };
 
-function mapStateToProps({ firestore, participants }, { scheduleId }) {
-  const { attendances, persons } = firestore.ordered;
-  const { search } = participants;
-  const list =
-    attendances && persons
-      ? persons
-          .filter(filter =>
-            filter.fullName.toUpperCase().includes(search.toUpperCase())
-          )
-          .map(it => {
-            const filtered = attendances.filter(
-              filter =>
-                filter.personId === it.id && filter.scheduleId === scheduleId
-            );
-
-            if (filtered.length > 0) {
-              const { id, quorum, sacramental } = filtered[0];
-
-              return {
-                ...it,
-                attendance: {
-                  id,
-                  quorum,
-                  sacramental,
-                  personId: it.id,
-                  scheduleId
-                }
-              };
-            } else {
-              return {
-                ...it,
-                attendance: {
-                  quorum: false,
-                  sacramental: false,
-                  personId: it.id,
-                  scheduleId
-                }
-              };
-            }
-          })
-      : [];
-
+function mapStateToProps({ firestore }, { scheduleId }) {
+  const list = extractAttendanceListFromFirestore(firestore.ordered,scheduleId)
   return {
     list: list
       ? list.sort((a, b) => {
@@ -168,7 +126,10 @@ function mapStateToProps({ firestore, participants }, { scheduleId }) {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { handleReciverParticipants, handleUpdateAtendence, handleCreatePerson },
+    {
+      handleUpdateAttendance,
+      handleGetAttendanceList
+    },
     dispatch
   );
 

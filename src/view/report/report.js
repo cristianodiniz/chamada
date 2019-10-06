@@ -14,10 +14,10 @@ import Paper from "@material-ui/core/Paper";
 
 import { withStyles } from "@material-ui/core/styles";
 
-import AppToolBar from "./app-tool-bar";
+import AppToolBar from "../common/app-tool-bar";
 import AttendanceReportItem from "./attendance-report-item";
 
-import { handleReciverSchedules } from "../store/actions/schedules";
+import { handleReciverSchedules } from "../../store/actions/schedules";
 
 class Report extends Component {
 

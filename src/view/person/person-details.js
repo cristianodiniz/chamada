@@ -5,11 +5,11 @@ import { firestoreConnect } from "react-redux-firebase";
 
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import AppToolBar from "./app-tool-bar";
+import AppToolBar from "../common/app-tool-bar";
 
-import PictureSelector from "./picture-selector";
+import PictureSelector from "../common/picture-selector";
 
-import { handleUpdatePerson } from "../store/actions/participants";
+import { handleUpdatePerson } from "../../store/actions/participants";
 
 class PersonDetails extends Component {
   state = { isPictureSelectorOpen: false };

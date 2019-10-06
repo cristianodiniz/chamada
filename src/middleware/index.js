@@ -1,15 +1,15 @@
 import thunk from "redux-thunk";
 import { applyMiddleware, compose } from "redux";
-import logger from "./logger";
+import { getFirebase } from "react-redux-firebase";
+import { getFirestore, reduxFirestore } from "redux-firestore";
 
-import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
-import { reduxFirestore, getFirestore } from "redux-firestore";
-import fdConfig from "../config/fbConfig";
+import logger from "./logger";
+import firebase from "../config/fbConfig";
+
 export default compose(
   applyMiddleware(
     thunk.withExtraArgument({ getFirebase, getFirestore }),
     logger
   ),
-  reduxFirestore(fdConfig,{ attachAuthIsReady: true}),
-  reactReduxFirebase(fdConfig)
+  reduxFirestore(firebase)
 );

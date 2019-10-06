@@ -4,9 +4,9 @@ import { bindActionCreators } from "redux";
 
 import Box from "@material-ui/core/Box";
 
-import AppToolBar from "./app-tool-bar";
-import ParticipantList from "./participant-list";
-import { handleOnSearchParticipants } from "../store/actions/participants";
+import AppToolBar from "../common/app-tool-bar";
+import ParticipantList from "../person/participant-list";
+import { handleOnSearchParticipants } from "../../store/actions/participants";
 
 class MarkAttendance extends Component {
   render() {
