@@ -57,8 +57,8 @@ class Report extends Component {
                     ) : (
                       <TableCell key={`col-data-${idx2}`} align="center">
                         <AttendanceReportItem
-                          subTitle1={col.sacramental ? "." : "-"}
-                          subTitle2={col.quorum ? "." : "-"}
+                          subTitle1={col.sacramental ? "1" : "0"}
+                          subTitle2={col.quorum ? "1" : "0"}
                         />
                       </TableCell>
                     )
