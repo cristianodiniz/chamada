@@ -41,8 +41,7 @@ export const updateAtendence = atendence => {
 
 export const handleUpdateAtendence = atendence => {
   return (dispatch, _getState, { getFirebase, getFirestore }) => {
-    
-    debugger
+
     const firestore = getFirestore();
     dispatch(showLoading);
 
