@@ -11,7 +11,7 @@ import "react-html5-camera-photo/build/css/index.css";
 import DialogFullScreen from "./dialog-full-screen";
 
 class PictureSelector extends Component {
-  state = { mode: "preview" };
+  state = { mode: "select" };
   inputFile = "";
   imagePreview = "";
   constructor(props) {
@@ -23,7 +23,7 @@ class PictureSelector extends Component {
 
   handlerOpenGaleryImage = () => {
     this.inputFile.current.click();
-    this.setState({ mode: "preview" });
+   
   };
 
   handlerOpenCamera = () => {
@@ -31,18 +31,23 @@ class PictureSelector extends Component {
   };
 
   handlerFileSelected = evt => {
+
+    this.setState({ mode: "preview" });
+
     evt.stopPropagation();
     evt.preventDefault();
+    
     const file = evt.target.files[0];
     const fr = new FileReader();
     fr.readAsDataURL(file);
     fr.onload = e => {
-      this.imagePreview.current.src = e.target.result;
+      this.imagePreview.current.src = e.target.result
     };
+
   };
 
   handlerOnConfirm = () => {
-    this.props.onConfirm && this.props.onSave(this.inputFile.files[0]);
+    this.props.onSave && this.props.onSave(this.inputFile.current.files[0]);
     this.props.handleClose();
   };
 
@@ -58,8 +63,8 @@ class PictureSelector extends Component {
   onTakePhoto(dataUri) {
     // Do stuff with the dataUri photo...
     // debugger
-    this.imagePreview.current.src = dataUri
-    console.log("takePhoto",dataUri);
+    this.imagePreview.current.src = dataUri;
+    console.log("takePhoto", dataUri);
     this.setState({ mode: "preview" });
   }
 
@@ -97,10 +102,22 @@ class PictureSelector extends Component {
             </Button>
           </div>
           <div className={classes.preview}>
-            <Camera className={{...classes.imagePreview, ...(mode !== "camera") ? {} : classes.hide } } 
-                onTakePhoto={dataUri => { this.onTakePhoto(dataUri); }} /> 
-            <img className={ {...classes.imagePreview,...(mode === "camera") ? {} : classes.hide } } 
-              ref={this.imagePreview} alt="preview" />
+            {mode === "camera" && (
+              <Camera
+                className={classes.imagePreview}
+                onTakePhoto={dataUri => {
+                  this.onTakePhoto(dataUri);
+                }}
+              />
+            )}
+
+            {mode === "preview" && (
+              <img
+                className={classes.imagePreview}
+                ref={this.imagePreview}
+                alt="preview"
+              />
+            )}
           </div>
           <input
             id="upload"
@@ -142,7 +159,7 @@ const styles = {
     width: "100%"
   },
   hide: {
-   display:"none"
+    display: "none"
   }
 };
 

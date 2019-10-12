@@ -6,8 +6,7 @@ const COLLECTION_NAME = "attendances";
 
 export const handleUpdateAttendance = Attendance => {
   return (dispatch, _getState, { getFirestore }) => {
-    // debugger
-    // // console.log(getFirestore)
+
     dispatch(showLoading);
 
     const ref = getFirestore().collection(COLLECTION_NAME);
