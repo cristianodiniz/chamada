@@ -1,7 +1,7 @@
 import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import {createErrorMessage} from "./errors"
+import { createErrorMessage } from "./errors";
 
 export const COLLECTION_NAME = "schedules";
 
@@ -15,20 +15,66 @@ export function createSchedule(schedule) {
 }
 
 export const handleCreateSchedule = schedule => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore();
-    firestore.getCollection(COLLECTION_NAME).add({
-      ...schedule,
-      createBy: "author name",
-      createAt: new Date()
-    }).then((response)=>{
-      console.log("response",response);
-      dispatch(createSchedule(schedule));
-    }).catch((error)=>{
-      dispatch(createErrorMessage(error));
-    })
-    
+  return (dispatch, _getState, { getFirestore, getFirebase }) => {
+    return new Promise((resolve, reject) => {
+      const ref = getFirestore().collection(COLLECTION_NAME);
+
+      const newSchedule = { ...schedule };
+
+      console.log("schedule",schedule)
+
+      const validate = validateSchedule(schedule);
+      const persist = !newSchedule.id
+        ? ref.add(newSchedule)
+        : ref.doc(newSchedule.id).update(newSchedule);
+
+      dispatch(showLoading);
+      Promise.all([validate, persist])
+        .then(result => {
+          dispatch(hideLoading);
+          resolve(result);
+        })
+        .catch(error => {
+          dispatch(createErrorMessage(error));
+          dispatch(hideLoading);
+          reject(error);
+        });
+    });
   };
+};
+
+const validateSchedule = schedule => {
+  return new Promise((resolve, reject) => {
+    const { date, status, createBy, createAt } = schedule;
+
+    if (!(date && status && createBy && createAt)) {
+      reject("Object invalid. Please inform 'date' and 'status' attributes.");
+      return;
+    }
+
+    if (!(status === "pending" || status === "finished")) {
+      reject(
+        "Object invalid. 'status' attribute should be 'pending' or 'finished'."
+      );
+      return;
+    }
+
+    if (!(status === "pending" || status === "finished")) {
+      reject(
+        "Object invalid. 'status' attribute should be 'pending' or 'finished'."
+      );
+      return;
+    }
+
+    if (!(status === "pending" || status === "finished")) {
+      reject(
+        "Object invalid. 'status' attribute should be 'pending' or 'finished'."
+      );
+      return;
+    }
+
+    resolve(true);
+  });
 };
 
 // #endregion CREATE_SCHEDULE
@@ -77,6 +123,5 @@ export function handleReciverSchedules(callback = null) {
       });
   };
 }
-
 
 // #endregion RECIVER_SCHEDULES

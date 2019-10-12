@@ -5,6 +5,7 @@ import LoadingBar from "react-redux-loading";
 
 import AttendanceReport from "./view/report/attendance-report";
 import SchedulesView from "./view/schedules/schedules-view";
+import AddOrEditSchedule from "./view/schedules/add-or-edit-schedule";
 import Login from "./view/user/login";
 import PersonDetails from "./view/person/person-details";
 import Report from "./view/report/report";
@@ -28,6 +29,10 @@ class App extends Component {
               <Route
                 path="/schedule/:scheduleId/attendance"
                 component={AttendanceReport}
+              />
+              <Route
+                path="/schedule/add"
+                component={AddOrEditSchedule}
               />
               <Route path="/login" component={Login} />
               <Route path="/persons/:personId" component={PersonDetails} />
