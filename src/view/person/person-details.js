@@ -27,31 +27,31 @@ class PersonDetails extends Component {
   };
 
   handlePictureSelectorOnSave = file => {
-      const metadata = {
-        contentType: file.type
-      };
-  
-      const {
-        firebase: { storage },
-        person,
-        personId
-      } = this.props;
-      const storageRef = storage().ref();
-  
-      storageRef
-        .child("images/" + file.name)
-        .put(file, metadata)
-        .then((snapshot) => {
-          snapshot.ref.getDownloadURL().then((url) => {
-            this.props.handleUpdatePerson(personId,{ ...person,avatar:url });
-            console.log("File available at", url);
-          });
-        })
-        .catch(function(error) {
-          // [START onfailure]
-          console.error("Upload failed:", error);
-          // [END onfailure]
-        });  
+    const metadata = {
+      contentType: file.type
+    };
+
+    const {
+      firebase: { storage },
+      person,
+      personId
+    } = this.props;
+    const storageRef = storage().ref();
+
+    storageRef
+      .child("images/" + file.name)
+      .put(file, metadata)
+      .then(snapshot => {
+        snapshot.ref.getDownloadURL().then(url => {
+          this.props.handleUpdatePerson(personId, { ...person, avatar: url });
+          console.log("File available at", url);
+        });
+      })
+      .catch(function(error) {
+        // [START onfailure]
+        console.error("Upload failed:", error);
+        // [END onfailure]
+      });
   };
 
   renderDetailsBody = ({ firstName, officer, lastName, avatar }, classes) => (
@@ -105,7 +105,7 @@ const styles = {
   image: {
     flexGrow: 1,
     objectFit: "contain",
-    minHeight: "70vh"
+    maxHeight: "70vh"
   },
   name: {
     flex: 1,
@@ -123,7 +123,7 @@ function mapStateToProps({ firestore }, { match }) {
   const { personId } = match ? match.params : "";
   const { persons } = firestore.data;
   const person = persons && personId ? persons[personId] : null;
-  return { isReady: !!person, person: person ? person : {} };
+  return { isReady: !!person, person: person ? person : {}, personId };
 }
 
 const mapDispatchToProps = dispatch =>
