@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+// import { Redirect } from 'react-router-dom'
 
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
@@ -9,12 +10,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 import AppToolBar from "../common/app-tool-bar";
-import { handleOnSearchSchedules } from "../../store/actions/schedules";
+import { handleCreateSchedule } from "../../store/actions/schedules";
 
 class AddOrEditSchedule extends Component {
   state = {
-    date: new Date(),
-    description: ""
+    date: "",
+    status: "pending"
   };
 
   handleChangeDate = e => {
@@ -27,9 +28,22 @@ class AddOrEditSchedule extends Component {
     this.setState({ description: value });
   };
 
-  onSaveSchedule = ()=>{
-    
-  }
+  onSaveSchedule = () => {
+    const newSchedule = {
+      createBy: this.props.user.email,
+      createAt: new Date().toISOString(),
+      ...this.state
+    };
+
+    this.props
+      .handleCreateSchedule(newSchedule)
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   render() {
     const { classes } = this.props;
@@ -40,29 +54,25 @@ class AddOrEditSchedule extends Component {
         <AppToolBar />
         <Container className={classes.content}>
           {/* <form className={classes.content}> */}
-            <TextField
-              id="filled-name"
-              label="Name"
-              type="date"
-              dataDateFormat="DD MMMM YYYY"
-              // className={classes.textField}
-              value={this.state.date}
-              onChange={this.handleChangeDate}
-              margin="normal"
-              variant="filled"
-            />
-            {/* <TextField
-              id="filled-name"
-              label="Name"
-              // className={classes.textField}
-              value={this.state.description}
-              onChange={this.handleChangeDescription}
-              margin="normal"
-              variant="filled"
-            /> */}
-            <Button variant="contained" color="primary" className={classes.button} onClick={this.onSaveSchedule}>
-              Save
-            </Button>
+          <TextField
+            id="filled-Date"
+            label="Date"
+            type="date"
+            // dataDateFormat="DD MMMM YYYY"
+            // className={classes.textField}
+            value={this.state.date}
+            onChange={this.handleChangeDate}
+            margin="normal"
+            variant="filled"
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={this.onSaveSchedule}
+          >
+            Save
+          </Button>
           {/* </form> */}
         </Container>
       </Box>
@@ -77,14 +87,15 @@ const styles = {
   }
 };
 
-function mapStateToProps({ schedule = {} }, props) {
+function mapStateToProps({ schedule = {}, firebase }, props) {
   return {
-    search: schedule.search ? schedule.search : ""
+    search: schedule.search ? schedule.search : "",
+    user: firebase.auth
   };
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ handleOnSearchSchedules }, dispatch);
+  bindActionCreators({ handleCreateSchedule }, dispatch);
 
 export default connect(
   mapStateToProps,
