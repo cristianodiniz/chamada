@@ -12,8 +12,8 @@ export const handleUpdateAttendance = Attendance => {
 
     const ref = getFirestore().collection(COLLECTION_NAME);
     const newAttendance = { ...Attendance };
-
-    const promisse = !newAttendance.id
+    
+    const promisse = (!newAttendance.id)
       ? ref.add(newAttendance)
       : ref.doc(newAttendance.id).update(newAttendance);
 
@@ -44,7 +44,7 @@ export const extractAttendanceListFromFirestore = ({ attendances, persons }, sch
       filter => filter.personId === it.id && filter.scheduleId === scheduleId
     );
 
-    const { id, quorum = false, sacramental = false } = (filtered.length > 0) ? filtered[0] : {};
+    const { id = null, quorum = false, sacramental = false } = (filtered.length > 0) ? filtered[0] : {};
     return {
       ...it,
       attendance: {
