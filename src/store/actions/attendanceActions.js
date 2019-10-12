@@ -12,10 +12,10 @@ export const handleUpdateAttendance = Attendance => {
 
     const ref = getFirestore().collection(COLLECTION_NAME);
     const newAttendance = { ...Attendance };
+
+    newAttendance.id = newAttendance.id ? newAttendance.id : ref.doc().id
     
-    const promisse = (!newAttendance.id)
-      ? ref.add(newAttendance)
-      : ref.doc(newAttendance.id).update(newAttendance);
+    const promisse = ref.doc(newAttendance.id).set(newAttendance)
 
     promisse
       .then(() => dispatch(hideLoading))
