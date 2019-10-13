@@ -224,7 +224,7 @@ export const SEARCH_PERSON = "SEARCH_PERSON";
 export function searchPerson(searchTerm) {
   return {
     type: SEARCH_PERSON,
-    search: searchTerm
+    search: searchTerm ? searchTerm.toUpperCase() : ""
   };
 }
 

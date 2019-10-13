@@ -29,7 +29,6 @@ class ParticipantList extends Component {
   handleToggle = (field, attendance) => () => {
     attendance[field] = !attendance[field];
     this.props.handleUpdateAttendance(attendance);
-    
   };
 
   handleAvatarFullScreenClose = () => {
@@ -111,16 +110,28 @@ const styles = {
   }
 };
 
-function mapStateToProps({ firestore }, { scheduleId }) {
-  const list = extractAttendanceListFromFirestore(firestore.ordered,scheduleId)
+function mapStateToProps({ firestore, participants }, { scheduleId }) {
+  const { search } = participants;
+
+  const list = extractAttendanceListFromFirestore(
+    firestore.ordered,
+    scheduleId
+  );
+
+  const filtred = list
+    ? search
+      ? list.filter(({ fullName }) => fullName.toUpperCase().includes(search))
+      : list
+    : [];
+
+  const sorted = filtred.sort((a, b) => {
+    if (a.lastName > b.lastName) return 1;
+    else if (a.lastName < b.lastName) return -1;
+    return 0;
+  });
+
   return {
-    list: list
-      ? list.sort((a, b) => {
-          if (a.lastName > b.lastName) return 1;
-          else if (a.lastName < b.lastName) return -1;
-          return 0;
-        })
-      : []
+    list: sorted
   };
 }
 
