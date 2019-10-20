@@ -4,14 +4,14 @@ import "firebase/storage";
 import "firebase/auth";
 
 export const fdConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SERVER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  apiKey: "AIzaSyBLiiadz1hxnhHVtNJBMhm3HPyTWJ_p2ZE",
+  authDomain: "chamada-dev.firebaseapp.com",
+  databaseURL: "https://chamada-dev.firebaseio.com",
+  projectId: "chamada-dev",
+  storageBucket: "chamada-dev.appspot.com",
+  messagingSenderId: "983813684946",
+  appId: "1:983813684946:web:0dd48ce9d4346d1ab2b70b",
+  measurementId: "G-05QTL5NEBR"
 };
 
 // react-redux-firebase config
