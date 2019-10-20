@@ -11,15 +11,13 @@ jobs:
   include:
     # - stage: bundle
     #   script: npm install 
-    - stage: test
-      script: npm install && npm run test
     - stage: build
-      script: npm run-script build
+      script: npm install && npm run-script build
     - stage: deploy
       deploy:
         provider: surge
         skip_cleanup: true
-        domain: chamada-test.surge.sh
+        domain: chamada-dev.surge.sh
         project: ./build/
         on:
           all_branches: true
