@@ -41,7 +41,7 @@ class App extends Component {
               <Route path="/:category/:id" component={PostPage} />  */}
             </Switch>
           )}
-          {isNotAuth && <Redirect to="/login" />}
+          {(loading && isNotAuth) && <Redirect to="/login" />}
         </Fragment>
       </div>
     );
