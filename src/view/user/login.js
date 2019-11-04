@@ -67,39 +67,31 @@ class Login extends Component {
                     </Typography>
                     <TextField
                         required
-                        id='organization'
                         type='Name'
                         onChange={this.handleChange}
                         label='organization'
-                        name='organization'
                         defaultValue=''
                         margin='normal'
                     />
                     <TextField
                         required
-                        id='email'
                         type='email'
                         onChange={this.handleChange}
                         label='email'
-                        name='email'
                         defaultValue=''
                         margin='normal'
                     />
                     <TextField
                         required
-                        id='password'
                         onChange={this.handleChange}
                         label='password'
                         type='password'
-                        name='password'
                         defaultValue=''
                         margin='normal'
                     />
                     <Button
                         variant='contained'
                         color='primary'
-                        name='action'
-                        value='SingUp'
                         className={classes.btnLogin}
                         onClick={this.handleSingIn}
                     >
@@ -109,11 +101,8 @@ class Login extends Component {
                         <hr />
                         <h2 className={classes.text}>OR</h2>
                     </div>
-                    <input id='action' type='hidden' name='action' value />
                     <Button
                         variant='contained'
-                        color='secondary'
-                        name='action2'
                         value='SingUp'
                         onClick={this.handleSingUp}
                         className={classes.btnSingUp}
