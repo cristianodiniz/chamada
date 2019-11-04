@@ -69,6 +69,7 @@ class Login extends Component {
                         required
                         type='Name'
                         onChange={this.handleChange}
+                        value={this.state.organization}
                         label='organization'
                         defaultValue=''
                         margin='normal'
@@ -77,6 +78,7 @@ class Login extends Component {
                         required
                         type='email'
                         onChange={this.handleChange}
+                        value={this.state.email}
                         label='email'
                         defaultValue=''
                         margin='normal'
@@ -86,6 +88,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                         label='password'
                         type='password'
+                        value={this.state.password}
                         defaultValue=''
                         margin='normal'
                     />
@@ -104,6 +107,7 @@ class Login extends Component {
                     <Button
                         variant='contained'
                         value='SingUp'
+                        color='secondary'
                         onClick={this.handleSingUp}
                         className={classes.btnSingUp}
                     >
