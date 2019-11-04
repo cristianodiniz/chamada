@@ -10,6 +10,17 @@ import Button from "@material-ui/core/Button";
 
 import { signIn } from "../../store/actions/authActions";
 
+function formValidation(formId) {
+    const form = document.querySelector(`#${formId}`);
+    if (!form.checkValidity()) {
+        const tmpSubmit = document.createElement("button");
+        form.appendChild(tmpSubmit);
+        tmpSubmit.click();
+        form.removeChild(tmpSubmit);
+    }
+    return form.checkValidity();
+}
+
 class Login extends Component {
     state = {
         email: "",
@@ -21,10 +32,19 @@ class Login extends Component {
             [e.target.id]: e.target.value
         });
     };
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.signIn(this.state);
+    handleSingIn = e => {
+        if (formValidation("loginForm")) {
+            e.preventDefault();
+            this.props.signIn(this.state);
+        }
     };
+    handleSingUp = e => {
+        if (formValidation("loginForm")) {
+            e.preventDefault();
+            this.props.signIn(this.state);
+        }
+    };
+
     render() {
         const { authError, classes, auth } = this.props;
 
@@ -33,7 +53,7 @@ class Login extends Component {
         }
 
         return (
-            <form onSubmit={this.handleSubmit} className={classes.form}>
+            <form id='loginForm' className={classes.form}>
                 <Container maxWidth='sm' className={classes.container}>
                     <Typography className={classes.title} variant='h4' noWrap>
                         Chamada
@@ -48,16 +68,20 @@ class Login extends Component {
                     <TextField
                         required
                         id='organization'
+                        type='Name'
                         onChange={this.handleChange}
                         label='organization'
+                        name='organization'
                         defaultValue=''
                         margin='normal'
                     />
                     <TextField
                         required
                         id='email'
+                        type='email'
                         onChange={this.handleChange}
                         label='email'
+                        name='email'
                         defaultValue=''
                         margin='normal'
                     />
@@ -67,25 +91,31 @@ class Login extends Component {
                         onChange={this.handleChange}
                         label='password'
                         type='password'
+                        name='password'
                         defaultValue=''
                         margin='normal'
                     />
                     <Button
-                        type='submit'
                         variant='contained'
                         color='primary'
+                        name='action'
+                        value='SingUp'
                         className={classes.btnLogin}
+                        onClick={this.handleSingIn}
                     >
                         Login
                     </Button>
                     <div className={classes.divisor}>
-                        <hr/>
+                        <hr />
                         <h2 className={classes.text}>OR</h2>
                     </div>
+                    <input id='action' type='hidden' name='action' value />
                     <Button
-                        type='submit'
                         variant='contained'
                         color='secondary'
+                        name='action2'
+                        value='SingUp'
+                        onClick={this.handleSingUp}
                         className={classes.btnSingUp}
                     >
                         Sign Up
@@ -119,15 +149,15 @@ const styles = {
     divisor: {
         marginTop: "32px",
         height: "32px",
-        position:'relative',
-        textAlign:'center'
+        position: "relative",
+        textAlign: "center"
     },
     text: {
         backgroundColor: "#c5c7cc",
         width: "50px",
-        position:'relative',
-        top:'-25px',
-        margin:'auto',
+        position: "relative",
+        top: "-25px",
+        margin: "auto"
     }
 };
 
