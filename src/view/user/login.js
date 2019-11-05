@@ -8,7 +8,7 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import { signIn } from "../../store/actions/authActions";
+import { signIn, signUp } from "../../store/actions/authActions";
 
 function formValidation(formId) {
     const form = document.querySelector(`#${formId}`);
@@ -29,7 +29,7 @@ class Login extends Component {
     };
     handleChange = e => {
         this.setState({
-            [e.target.id]: e.target.value
+            [e.target.name]: e.target.value
         });
     };
     handleSingIn = e => {
@@ -41,16 +41,15 @@ class Login extends Component {
     handleSingUp = e => {
         if (formValidation("loginForm")) {
             e.preventDefault();
-            this.props.signIn(this.state);
+            this.props.signUp(this.state);
         }
     };
 
     render() {
         const { authError, classes, auth } = this.props;
-
-        if (auth.uid) {
-            return <Redirect to='/' />;
-        }
+        // if (auth.uid) {
+        //     return <Redirect to='/' />;
+        // }
 
         return (
             <form id='loginForm' className={classes.form}>
@@ -68,6 +67,7 @@ class Login extends Component {
                     <TextField
                         required
                         type='Name'
+                        name='organization'
                         onChange={this.handleChange}
                         value={this.state.organization}
                         label='organization'
@@ -77,6 +77,7 @@ class Login extends Component {
                     <TextField
                         required
                         type='email'
+                        name='email'
                         onChange={this.handleChange}
                         value={this.state.email}
                         label='email'
@@ -88,6 +89,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                         label='password'
                         type='password'
+                        name='password'
                         value={this.state.password}
                         defaultValue=''
                         margin='normal'
@@ -154,16 +156,18 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({ auth, firebase }) => {
+const mapStateToProps = ({ messenger: { error }, firebase }) => {
+    const { message } = error ;
     return {
-        authError: auth.authError,
+        authError: message,
         auth: firebase.auth
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        signIn: creds => dispatch(signIn(creds))
+        signIn: creds => dispatch(signIn(creds)),
+        signUp: creds => dispatch(signUp(creds))
     };
 };
 

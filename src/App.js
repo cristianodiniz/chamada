@@ -13,46 +13,53 @@ import { handlerInitialData } from "./store/actions/shared";
 import "./App.css";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(handlerInitialData());
-  }
-  render() {
-    const { loading, isNotAuth } = this.props;
+    componentDidMount() {
+        this.props.dispatch(handlerInitialData());
+    }
+    render() {
+        const { isLoaded, isAuthenticated } = this.props;
+  
+        return (
+            <div className='App'>
+                 <LoadingBar />
+                {isLoaded &&
+                    <Fragment>
+                        <Switch>
+                            <Route exact path='/' component={SchedulesView} />
+                            <Route
+                                path='/schedule/:scheduleId/attendance'
+                                component={AttendanceReport}
+                            />
+                            <Route
+                                path='/schedule/add'
+                                component={AddOrEditSchedule}
+                            />
+                            <Route path='/login' component={Login} />
+                            <Route
+                                path='/persons/:personId'
+                                component={PersonDetails}
+                            />
+                            <Route path='/report' component={Report} />
 
-    return (
-      <div className="App">
-        <Fragment>
-          <LoadingBar />
-          {!loading && (
-            <Switch>
-              <Route exact path="/" component={SchedulesView} />
-              <Route
-                path="/schedule/:scheduleId/attendance"
-                component={AttendanceReport}
-              />
-              <Route
-                path="/schedule/add"
-                component={AddOrEditSchedule}
-              />
-              <Route path="/login" component={Login} />
-              <Route path="/persons/:personId" component={PersonDetails} />
-              <Route path="/report" component={Report} />
-              {/* <Route path="/:category" exact component={Dashboard} />
-              <Route path="/:category/:id" component={PostPage} />  */}
-            </Switch>
-          )}
-          {(loading && isNotAuth) && <Redirect to="/login" />}
-        </Fragment>
-      </div>
-    );
-  }
+                        </Switch>
+                        {!isAuthenticated && <Redirect to='/login' />} 
+                    </Fragment>
+                }
+            </div>
+        );
+    }
 }
 
 function mapStateToProps({ loadingBar, firebase }) {
-  return {
-    loading: loadingBar ? loadingBar.default === 1 : true,
-    isNotAuth: !firebase.auth.uid
-  };
+    const isLoaded = loadingBar ? loadingBar.default === 0 : false;
+    const isAuthenticated = firebase.isLoaded
+        ? firebase.auth.emailVerified
+        : false;
+    
+    return {
+        isLoaded,
+        isAuthenticated
+    };
 }
 
 export default connect(mapStateToProps)(App);

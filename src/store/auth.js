@@ -1,4 +1,7 @@
-import { createErrorMessage, createSuccessMessage } from "./messengerActions";
+import {
+    createErrorMessage,
+    createSuccessMessage
+} from "./actions/messengerActions";
 
 export const signIn = credentials => {
     return (dispatch, getState, { getFirebase }) => {
@@ -55,15 +58,14 @@ export const signUp = credentials => {
     };
 };
 
-export const UPDATE_AUTH_STATUS = 'UPDATE_AUTH_STATUS';
+export const UPDATE_AUTH_STATUS = "UPDATE_AUTH_STATUS";
 
 export const setIsAuthenticated = value => {
-  return {
-      type: UPDATE_AUTH_STATUS,
-      isAuthenticated: value
-  };
+    return {
+        type: UPDATE_AUTH_STATUS,
+        isAuthenticated: value
+    };
 };
-
 
 export const whenFirebaseLoginIsLoadedMiddleware = store => next => action => {
     const returnValue = next(action);
@@ -80,3 +82,22 @@ export const whenFirebaseLoginIsLoadedMiddleware = store => next => action => {
 
     return returnValue;
 };
+
+
+
+
+const initState = {
+    isAuthenticated: false
+};
+
+const authReducer = (state = initState, action) => {
+    switch (action.type) {
+        case UPDATE_AUTH_STATUS: {
+            return { ...state, ...action };
+        }
+        default:
+            return state;
+    }
+};
+
+export default authReducer;

@@ -1,7 +1,7 @@
 import { getAllSchedules } from "../../services/ChamadaAPI";
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import { createErrorMessage } from "./errors";
+import { createErrorMessage } from "./messengerActions";
 
 export const COLLECTION_NAME = "schedules";
 

@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import { createErrorMessage } from "./errors";
+import { createErrorMessage } from "./messengerActions";
 
 const COLLECTION_NAME = "attendances";
 
