@@ -9,10 +9,10 @@ cache:
 
 jobs:
   include:
-    # - stage: bundle
-    #   script: npm install 
+    - stage: bundle
+      script: npm install 
     - stage: build
-      script: npm install && npm run-script build
+      script: npm run-script build
     - stage: deploy
       deploy:
         provider: surge
