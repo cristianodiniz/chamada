@@ -2,17 +2,17 @@
 
 exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-135"
+  className="MuiBox-root MuiBox-root-149"
 >
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-136 MuiAppBar-colorPrimary mui-fixed"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-150 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-137 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-151 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -46,15 +46,15 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
         </span>
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-138 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-152 MuiTypography-h6 MuiTypography-noWrap"
       >
         Chamada
       </h6>
       <div
-        className="makeStyles-search-139"
+        className="makeStyles-search-153"
       >
         <div
-          className="makeStyles-searchIcon-140"
+          className="makeStyles-searchIcon-154"
         >
           <svg
             aria-hidden="true"
@@ -69,12 +69,12 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
           </svg>
         </div>
         <div
-          className="MuiInputBase-root makeStyles-inputRoot-141"
+          className="MuiInputBase-root makeStyles-inputRoot-155"
           onClick={[Function]}
         >
           <input
             aria-label="Search"
-            className="MuiInputBase-input makeStyles-inputInput-142"
+            className="MuiInputBase-input makeStyles-inputInput-156"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -86,7 +86,47 @@ exports[`Attendance Report Tests Component Should Match Snapshot 1`] = `
     </div>
   </header>
   <div
-    className="makeStyles-space-143"
+    className="makeStyles-space-157"
   />
+  <a
+    className="MarkAttendance-link-146"
+    href="/person/add"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="add"
+      className="MuiButtonBase-root MuiFab-root MarkAttendance-fab-147 MuiFab-primary"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiFab-label"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </a>
 </div>
 `;
