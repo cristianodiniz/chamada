@@ -1,4 +1,4 @@
-import { RECIVER_PARTICIPANTS, SEARCH_PERSON } from "../actions/participants";
+import { RECIVER_PARTICIPANTS, SEARCH_PERSON, SEARCH_PROSCPECT } from "../actions/participants";
 
 export const initialState = {list:[],search:""};
 
@@ -11,6 +11,11 @@ export default function participants(state = initialState, action) {
         ...state,
         search: action.search
       };
+    case SEARCH_PROSCPECT:
+        return {
+          ...state,
+          searchProspect: action.search
+        };  
     default:
       return state;
   }
