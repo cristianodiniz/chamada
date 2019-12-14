@@ -6,15 +6,14 @@ const COLLECTION_NAME = "attendances";
 
 export const handleUpdateAttendance = Attendance => {
   return (dispatch, _getState, { getFirestore }) => {
-
     dispatch(showLoading);
 
     const ref = getFirestore().collection(COLLECTION_NAME);
     const newAttendance = { ...Attendance };
 
-    newAttendance.id = newAttendance.id ? newAttendance.id : ref.doc().id
-    
-    const promisse = ref.doc(newAttendance.id).set(newAttendance)
+    newAttendance.id = newAttendance.id ? newAttendance.id : ref.doc().id;
+
+    const promisse = ref.doc(newAttendance.id).set(newAttendance);
 
     promisse
       .then(() => dispatch(hideLoading))
@@ -33,28 +32,32 @@ export const handleGetAttendanceList = scheduleId => {
   };
 };
 
-export const extractAttendanceListFromFirestore = ({ attendances, persons }, scheduleId ) => {
+export const extractAttendanceListFromFirestore = (
+  { attendances, persons },
+  scheduleId
+) => {
   if (!(attendances && persons)) {
     return [];
   }
-  
+
   const list = persons.map(it => {
     const filtered = attendances.filter(
       filter => filter.personId === it.id && filter.scheduleId === scheduleId
     );
 
-    const { id = null, quorum = false, sacramental = false } = (filtered.length > 0) ? filtered[0] : {};
+    const { id = null, quorum = null, sacramental = null } =
+      filtered.length > 0 ? filtered[0] : {};
     return {
       ...it,
       attendance: {
         id,
         quorum,
         sacramental,
+        isPend: quorum === null || sacramental === null,
         personId: it.id,
         scheduleId
       }
     };
-
   });
 
   return list;

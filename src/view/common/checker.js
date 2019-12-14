@@ -4,10 +4,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Switch from "@material-ui/core/Switch";
 
-
 class Checker extends Component {
   render() {
-    const {classes,  title, onChange, checked } = this.props;
+    const { classes, title, onChange, checked } = this.props;
 
     return (
       <span className={classes.container}>
@@ -33,8 +32,7 @@ class Checker extends Component {
   }
 }
 
-const styles = 
-{
+const styles = {
   container: {
     display: "flex",
     justifyContent: "space-between"
@@ -45,6 +43,5 @@ const styles =
     justifyContent: "center"
   }
 };
-
 
 export default withStyles(styles)(Checker);

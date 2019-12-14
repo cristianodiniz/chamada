@@ -62,7 +62,9 @@ class ParticipantList extends Component {
         {list.length > 0 &&
           list.map(({ attendance, firstName, lastName, avatar, id }, idx) => (
             <Fragment key={idx}>
-              <ListItem alignItems="flex-start">
+              <ListItem alignItems="flex-start"
+                className={ attendance.sacramental === null || attendance.quorum === null ? classes.pendent : classes.updated}
+                >
                 <ListItemAvatar>
                   <Avatar
                     alt={firstName}
@@ -107,7 +109,15 @@ const styles = {
     margin: 10,
     width: 80,
     height: 80
+  },
+  updated:{
+    backgroundColor: "#888888"
+    , opacity: "0.2"
+  },
+  pendent:{
+
   }
+
 };
 
 function mapStateToProps({ firestore, participants }, { scheduleId }) {
