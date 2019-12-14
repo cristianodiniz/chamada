@@ -8,7 +8,7 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import { signIn } from "../../store/actions/authActions";
+import { signIn, signUp } from "../../store/actions/authActions";
 
 function formValidation(formId) {
     const form = document.querySelector(`#${formId}`);
@@ -41,7 +41,7 @@ class Login extends Component {
     handleSingUp = e => {
         if (formValidation("loginForm")) {
             e.preventDefault();
-            this.props.signIn(this.state);
+            this.props.signUp(this.state);
         }
     };
 
@@ -71,6 +71,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                         value={this.state.organization}
                         label='organization'
+                        id='organization'
                         defaultValue=''
                         margin='normal'
                     />
@@ -80,6 +81,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                         value={this.state.email}
                         label='email'
+                        id='email'
                         defaultValue=''
                         margin='normal'
                     />
@@ -88,6 +90,7 @@ class Login extends Component {
                         onChange={this.handleChange}
                         label='password'
                         type='password'
+                        id='password'
                         value={this.state.password}
                         defaultValue=''
                         margin='normal'
@@ -163,7 +166,8 @@ const mapStateToProps = ({ auth, firebase }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signIn: creds => dispatch(signIn(creds))
+        signIn: creds => dispatch(signIn(creds)),
+        signUp: data => dispatch(signUp(data))
     };
 };
 
