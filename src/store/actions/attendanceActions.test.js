@@ -55,6 +55,7 @@ describe("Attendance Actions", function() {
           id: "attendances01",
           personId: "persons01",
           quorum: true,
+          isPend: false,
           sacramental: true,
           scheduleId: "schedules02"
         },
@@ -72,6 +73,7 @@ describe("Attendance Actions", function() {
           id: "attendances02",
           personId: "persons02",
           quorum: true,
+          isPend: false,
           sacramental: false,
           scheduleId: "schedules02"
         },
