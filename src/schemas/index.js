@@ -26,8 +26,8 @@ export const validateOrganization = organization => {
             type: String,
             required: true,
             length: {
-                min: 4,
-                max: 20
+                min: 8,
+                max: 10
             },
             test: RegexPatterns.Password.regex
         }

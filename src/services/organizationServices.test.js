@@ -64,11 +64,38 @@ describe("Organization service", () => {
 
     test.todo("organization name should be unique");
 
-    test.todo("organization email should contain a valid format");
+    it("organization email should contain a valid format", async () => {
+        let aux = null;
+        await SRV.createOrganization({
+            name: "InstituteXYZ",
+            email: "infoInstitute.com",
+            password: "Pa&&0word"
+        }).catch(({email}) => {
+            aux = email.test.message
+        });
+        expect(aux).toBe("Parameter data did not pass regex test.");
+    });
 
     test.todo("organization email should be unique");
 
-    test.todo(
-        "organization password should be greater then 8 and lesser then 10"
-    );
+    it("organization password should be greater then 8 and lesser then 10",async ()=>{
+        let aux = null;
+        await SRV.createOrganization({
+            name: "InstituteXYZ",
+            email: "info@Institute.com",
+            password: "Pa&&0wo"
+        }).catch(({password}) => {
+            aux = password.min.message
+        });
+        expect(aux).toBe("Must be greater than 8");
+
+        await SRV.createOrganization({
+            name: "InstituteXYZ",
+            email: "info@Institute.com",
+            password: "Pa&&0678901"
+        }).catch(({password}) => {
+            aux = password.max.message
+        });
+        expect(aux).toBe("Must be less than 10");
+    });
 });
