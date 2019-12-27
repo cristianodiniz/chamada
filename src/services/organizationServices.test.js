@@ -1,63 +1,65 @@
 import * as SRV from "./organizationServices";
 
 describe("Organization service", () => {
-    it("should obligate informe all organization attributes (organization name, user, password)", () => {
-        expect(() => {
-            SRV.createOrganization({});
-        }).toThrowError(
-            "The propers name, email and password muss be informed"
-        );
+    it("should obligate informe all organization attributes (organization name, user, password)", async () => {
+        let aux = null;
+        await SRV.createOrganization({}).catch(({ name, email, password }) => {
+            aux = (name || email || password) && "fileds required";
+        });
+        expect(aux).toBe("fileds required");
 
-        expect(() => {
-            SRV.createOrganization({
-                name: "Institute XYZ",
-                email: "info@Institute.com"
-            });
-        }).toThrowError(
-            "The propers name, email and password muss be informed"
-        );
+        await SRV.createOrganization({
+            name: "InstituteXYZ",
+            email: "info@Institute.com"
+        }).catch(({ name, email, password }) => {
+            aux =
+                (name === undefined || email === undefined || password) &&
+                "password required";
+        });
+        expect(aux).toBe("password required");
 
-        expect(
-            SRV.createOrganization({
-                name: "Institute XYZ",
-                email: "info@Institute.com",
-                password: "password"
-            })
-        );
+        await SRV.createOrganization({
+            name: "InstituteXYZ",
+            email: "info@Institute.com",
+            password: "Pa&&0word"
+        }).then(() => {
+            aux = "ok";
+        });
+
+        expect(aux).toBe("ok");
     });
 
-    it("organization name should be greater then 4 and lesser then 20", () => {
-        expect(() =>
-            SRV.createOrganization({
-                name: "123",
-                email: "info@Institute.com",
-                password: "password"
-            })
-        ).toThrowError(
-            "The organization name should be greater then 4 and lesser then 20"
-        );
+    it("organization name should be greater then 4 and lesser then 20", async () => {
+        let aux = null;
+        await SRV.createOrganization({
+            name: "Abc",
+            email: "info@Institute.com",
+            password: "Pa&&0word"
+        }).catch(error => {
+            aux = error.name.min.message;
+        });
+        expect(aux).toBe("Must be greater than 4");
 
-        expect(() =>
-            SRV.createOrganization({
-                name: "123456789012345678901",
-                email: "info@Institute.com",
-                password: "password"
-            })
-        ).toThrowError(
-            "The organization name should be greater then 4 and lesser then 20"
-        );
-
-        expect(
-            SRV.createOrganization({
-                name: "123456789",
-                email: "info@Institute.com",
-                password: "password"
-            })
-        );
+        await SRV.createOrganization({
+            name: "AbcdfeghijAbcdfeghij1",
+            email: "info@Institute.com",
+            password: "Pa&&0word"
+        }).catch(error => {
+            aux = error.name.max.message;
+        });
+        expect(aux).toBe("Must be less than 20");
     });
 
-    it("organization name should not contain special characters",()=>{
-
+    it("organization name should not contain special characters", async () => {
+        let aux = null;
+        await SRV.createOrganization({
+            name: "012345@$%&*(",
+            email: "info@Institute.com",
+            password: "Pa&&0word"
+        }).catch(({ name }) => {
+            aux = name && "name is invalid";
+        });
+        expect(aux).toBe("name is invalid");
     });
 
     test.todo("organization name should be unique");
