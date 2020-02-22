@@ -2,11 +2,13 @@ import React, { Fragment } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import CloudDownload from "@material-ui/icons/CloudDownload";
 
 import MainMenu from './main-menu'
 
@@ -72,7 +74,7 @@ const handlerOnChangeSearch = onSearch => e => {
 
 export default function AppToolBar(props) {
   const classes = useStyles();
-  const { onSearch, title } = props;
+  const { onSearch,onDownload, title } = props;
 
   const [state, setState] = React.useState({
     open: false,
@@ -114,6 +116,13 @@ export default function AppToolBar(props) {
                 onChange={handlerOnChangeSearch(onSearch)}
                 inputProps={{ "aria-label": "Search" }}
               />
+            </div>
+          )}
+          {onDownload &&(
+            <div >
+              <IconButton color="inherit"  onClick={onDownload} component="span">
+                <CloudDownload />
+              </IconButton>
             </div>
           )}
         </Toolbar>
