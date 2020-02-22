@@ -2,17 +2,17 @@
 
 exports[`shecudules view Tests Component Should Match Snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-164"
+  className="MuiBox-root MuiBox-root-162"
 >
   <header
-    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-165 MuiAppBar-colorPrimary mui-fixed"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionFixed makeStyles-root-163 MuiAppBar-colorPrimary mui-fixed"
   >
     <div
       className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <button
         aria-label="Open drawer"
-        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-166 MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        className="MuiButtonBase-root MuiIconButton-root makeStyles-menuButton-164 MuiIconButton-colorInherit MuiIconButton-edgeStart"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -49,15 +49,15 @@ exports[`shecudules view Tests Component Should Match Snapshot 1`] = `
         />
       </button>
       <h6
-        className="MuiTypography-root makeStyles-title-167 MuiTypography-h6 MuiTypography-noWrap"
+        className="MuiTypography-root makeStyles-title-165 MuiTypography-h6 MuiTypography-noWrap"
       >
         Chamada
       </h6>
       <div
-        className="makeStyles-search-168"
+        className="makeStyles-search-166"
       >
         <div
-          className="makeStyles-searchIcon-169"
+          className="makeStyles-searchIcon-167"
         >
           <svg
             aria-hidden="true"
@@ -72,13 +72,12 @@ exports[`shecudules view Tests Component Should Match Snapshot 1`] = `
           </svg>
         </div>
         <div
-          className="MuiInputBase-root makeStyles-inputRoot-170"
+          className="MuiInputBase-root makeStyles-inputRoot-168"
           onClick={[Function]}
         >
           <input
             aria-label="Search"
-            className="MuiInputBase-input makeStyles-inputInput-171"
-            onAnimationStart={[Function]}
+            className="MuiInputBase-input makeStyles-inputInput-169"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
@@ -90,19 +89,19 @@ exports[`shecudules view Tests Component Should Match Snapshot 1`] = `
     </div>
   </header>
   <div
-    className="makeStyles-space-172"
+    className="makeStyles-space-170"
   />
   <ul
-    className="MuiList-root Schedules-root-298 MuiList-padding"
+    className="MuiList-root Schedules-root-294 MuiList-padding"
   />
   <a
-    className="Schedules-link-299"
+    className="Schedules-link-295"
     href="/schedule/add"
     onClick={[Function]}
   >
     <button
       aria-label="add"
-      className="MuiButtonBase-root MuiFab-root Schedules-fab-300 MuiFab-primary"
+      className="MuiButtonBase-root MuiFab-root Schedules-fab-296 MuiFab-primary"
       disabled={false}
       onBlur={[Function]}
       onDragLeave={[Function]}

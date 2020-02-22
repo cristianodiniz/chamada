@@ -29,15 +29,14 @@ exports[`Checker Tests Component Should Match Snapshot 1`] = `
       <span
         className="MuiIconButton-label"
       >
+        <span
+          className="MuiSwitch-thumb"
+        />
         <input
           aria-labelledby="switch-list-label-wifi"
           className="PrivateSwitchBase-input-108 MuiSwitch-input"
-          disabled={false}
           onChange={[Function]}
           type="checkbox"
-        />
-        <span
-          className="MuiSwitch-thumb"
         />
       </span>
     </span>
